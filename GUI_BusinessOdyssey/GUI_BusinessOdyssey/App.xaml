@@ -1,0 +1,14 @@
+﻿<Application x:Class="UIBO.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UIBO"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Name="buttonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="Background" Value="CornflowerBlue"></Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        </Style>
+    </Application.Resources>
+</Application>
