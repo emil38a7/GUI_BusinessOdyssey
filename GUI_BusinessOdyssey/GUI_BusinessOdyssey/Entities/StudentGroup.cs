@@ -17,12 +17,6 @@ namespace GUI_BusinessOdyssey.Entities
         public ObservableCollection<ScoreSheetReg> ScoreSheetReg { get; set; }
 
         public ObservableCollection<Student> student { get; set; }
-
-        /*public ObservableCollection<Student> Student
-        {
-            get { return student; }
-            set { student = value; }
-        }
-        */
+        
     }
 }

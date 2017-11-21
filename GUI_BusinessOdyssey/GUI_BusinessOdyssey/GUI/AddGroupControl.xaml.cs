@@ -27,28 +27,25 @@ namespace GUI_BusinessOdyssey.GUI
         Student student;
         StudentGroup sGroup;
         Office office;
-        string groupName;
         List<int> studentIdList;
         List<int> groupIdList;
-        List<Student> tempList;
+        List<Student> tempStudentList;
+        int track = 0;
 
         public AddGroupControl()
         {
             InitializeComponent();
-            //student = new Student();
-            //sGroup = new StudentGroup();
             office = new Office();
             studentIdList = new List<int>();
             this.DataContext = office;
             studentIdList =  office.getIDsList("student");
             groupIdList = office.getIDsList("studentGroupID");
-            tempList = new List<Student>();
+            tempStudentList = new List<Student>();
 
         }
 
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {           
             int id = office.generateID(studentIdList);
 
             student = new Student
@@ -58,29 +55,27 @@ namespace GUI_BusinessOdyssey.GUI
                 studentSchool = studentSchoolBox.Text
             };
             office.StudentList.Add(student);
-            tempList.Add(student);
+            tempStudentList.Add(student);
             studentIdList.Add(id);
-            Console.ReadLine();
         }
 
         private void categoryNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var groupName = categoryNameComboBox.SelectedItem.ToString();
-            groupName = groupNameTextBox.Text; //groupName.Substring(groupName.IndexOf(' ') + 1);
+            track = categoryNameComboBox.SelectedIndex + 1;  
         }
 
         private void addStudentGroup_Click(object sender, RoutedEventArgs e)
         {
-            groupName = groupNameTextBox.Text;
-
-            sGroup = new StudentGroup();
-            sGroup.SGroupId = office.generateID(groupIdList);
-            sGroup.SGroupName = groupName;
-            sGroup.TrackId = 1;
+            sGroup = new StudentGroup
+            {
+                SGroupId = office.generateID(groupIdList),
+                SGroupName = groupNameTextBox.Text,
+                TrackId = track,
+                student = new ObservableCollection<Student>()
+            };
             student.groupID = sGroup.SGroupId;
-            sGroup.student = new ObservableCollection<Student>();
           
-            foreach(Student s in tempList)
+            foreach(Student s in tempStudentList)
             {
                sGroup.student.Add(s);
             }

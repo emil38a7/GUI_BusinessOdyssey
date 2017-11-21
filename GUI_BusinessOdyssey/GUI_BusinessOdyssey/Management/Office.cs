@@ -43,7 +43,9 @@ namespace GUI_BusinessOdyssey.Management
                 Console.WriteLine(dataString);
                 client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
                 client.UploadString(new Uri(studentGroupController), "POST", dataString);
+                var response = client.DownloadData(studentGroupController);
             }
+
         }
 
         public JArray getStudentGroups(string entityName)
