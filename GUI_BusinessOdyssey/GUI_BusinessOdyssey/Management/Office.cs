@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using GUI_BusinessOdyssey.Entities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -11,34 +13,63 @@ namespace GUI_BusinessOdyssey.Management
 {
     class Office
     {
-        string getStudentGroup = "http://localhost:55290/api/studentGroups";
+        string studentController = "http://localhost:55290/api/students";
+        string studentGroupController = "http://localhost:55290/api/studentGroups";
+        string judgeController = "http://localhost:55290/api/Judges";
+        string judgeGroupController = "http://localhost:55290/api/JudgesGroups";
+        string studentID = "studentId";
         string studentGroupID = "sGroupId";
+        string judgeID = "JudgeId";
+        string judgeGroupID = "JGroupId";
+
         string propertyName = "";
         string accessPath = "";
 
-        public JArray getStudentGroups(string entityName)
+        public List<int> finalIdList { get; set; }
+
+        ObservableCollection<Student> studentList = new ObservableCollection<Student>();
+        public ObservableCollection<Student> StudentList
+        {
+            get { return studentList; }
+            set { studentList = value; }
+        }
+
+        public void postObject(object obj)
         {
 
+            using (var client = new WebClient())
+            {
+                var dataString = JsonConvert.SerializeObject(obj);
+                Console.WriteLine(dataString);
+                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                client.UploadString(new Uri(studentGroupController), "POST", dataString);
+            }
+        }
+
+        public JArray getStudentGroups(string entityName)
+        {
             switch (entityName)
             {
                 case "student":                   
-                    propertyName = "StudentId";
+                    propertyName = studentID;
+                    accessPath = studentController;
                     break;
-                case "studentGroup":
+                case "studentGroupID":
                     propertyName = studentGroupID;
-                    accessPath = getStudentGroup;
+                    accessPath = studentGroupController;
                     break;
                 case "judge":
-                    entityName = "JudgeId";
+                    propertyName = judgeID;
+                    accessPath = judgeController;
                     break;
                 case "judgeGroup":
-                    entityName = "JGroupId";
+                    propertyName = judgeGroupID;
+                    accessPath = judgeGroupController;
                     break;
             }
 
-
             WebClient client = new WebClient();
-            var response = client.DownloadString(getStudentGroup);
+            var response = client.DownloadString(accessPath);
             string resp = JsonConvert.ToString(response);
 
             dynamic studentGroups = JsonConvert.DeserializeObject<dynamic>(resp);
@@ -49,8 +80,7 @@ namespace GUI_BusinessOdyssey.Management
         }
 
         public List<int> getIDsList(string entityName)
-        {
-            
+        {           
             JArray jArray = getStudentGroups(entityName);
 
             List<int> idList = new List<int>();
@@ -62,21 +92,15 @@ namespace GUI_BusinessOdyssey.Management
                     {
                         idList.Add(int.Parse(property.Value.ToString()));
                     }
-                }
-                
-            }
-            /*
-            foreach(int i in idList)
-            {
-                Console.WriteLine(i);
-
-            }*/
+                }       
+            }            
             return idList;
         }
 
-        public int generateID(string entityName)
+        public int generateID(List<int> idList)
         {
-            List<int> idList = getIDsList(entityName);
+            //List<int> idList = getIDsList(entityName);
+
             int id = 0;
             if (idList.Count != 0)
             {

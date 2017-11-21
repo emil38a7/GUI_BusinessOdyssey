@@ -88,8 +88,12 @@
     <Compile Include="Entities\Judge.cs" />
     <Compile Include="Entities\JudgeTeam.cs" />
     <Compile Include="Entities\Quesstion.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\ScoreSheet.cs" />
+    <Compile Include="Entities\ScoreSheetReg.cs" />
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\StudentGroup.cs" />
+    <Compile Include="Entities\Track.cs" />
     <Compile Include="GUI\AddGroupControl.xaml.cs">
       <DependentUpon>AddGroupControl.xaml</DependentUpon>
     </Compile>

@@ -9,17 +9,19 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class StudentGroup
     {
-        public int sGroup_ID { get; set; }
-        public string sGroup_Name { get; set; }
-        public int track_ID { get; set; }
 
-/*
-        private ObservableCollection<Student> studentGroupList = new ObservableCollection<Student>();
+        public int SGroupId { get; set; }
+        public string SGroupName { get; set; }
+        public int TrackId { get; set; }
 
-        public ObservableCollection<Student> StudentGroupList
+        public ObservableCollection<ScoreSheetReg> ScoreSheetReg { get; set; }
+
+        public ObservableCollection<Student> student { get; set; }
+
+        /*public ObservableCollection<Student> Student
         {
-            get { return studentGroupList; }
-            set { studentGroupList = value; }
+            get { return student; }
+            set { student = value; }
         }
         */
     }

@@ -8,8 +8,15 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class Student
     {
-        public int studentID { get; set; }
+        [NonSerialized]
+        public int studentID;
+        public int StudentID
+        {
+            get { return studentID; }
+            set { studentID = value; }
+        }
 
+        [NonSerialized]
         public string studentName;
         public string StudentName
         {
@@ -17,6 +24,7 @@ namespace GUI_BusinessOdyssey.Entities
             set { studentName = value; }
         }
 
+        [NonSerialized]
         public string studentSchool;
         public string StudentSchool
         {
