@@ -41,8 +41,8 @@ namespace GUI_BusinessOdyssey.GUI
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
 
-            student.studentID = office.generateID("SGroupName");
-            Console.WriteLine(student.studentID);
+            int id = office.generateID("studentGroup");
+            Console.WriteLine(id);
             Console.ReadLine();
         }
 

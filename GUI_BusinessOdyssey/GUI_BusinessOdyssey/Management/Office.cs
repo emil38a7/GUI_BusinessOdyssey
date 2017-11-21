@@ -11,11 +11,34 @@ namespace GUI_BusinessOdyssey.Management
 {
     class Office
     {
+        string getStudentGroup = "http://localhost:55290/api/studentGroups";
+        string studentGroupID = "sGroupId";
+        string propertyName = "";
+        string accessPath = "";
 
-        public JArray getStudentGroups()
+        public JArray getStudentGroups(string entityName)
         {
+
+            switch (entityName)
+            {
+                case "student":                   
+                    propertyName = "StudentId";
+                    break;
+                case "studentGroup":
+                    propertyName = studentGroupID;
+                    accessPath = getStudentGroup;
+                    break;
+                case "judge":
+                    entityName = "JudgeId";
+                    break;
+                case "judgeGroup":
+                    entityName = "JGroupId";
+                    break;
+            }
+
+
             WebClient client = new WebClient();
-            var response = client.DownloadString("http://localhost:55290/api/studentGroups");
+            var response = client.DownloadString(getStudentGroup);
             string resp = JsonConvert.ToString(response);
 
             dynamic studentGroups = JsonConvert.DeserializeObject<dynamic>(resp);
@@ -28,45 +51,32 @@ namespace GUI_BusinessOdyssey.Management
         public List<int> getIDsList(string entityName)
         {
             
-            switch (entityName)
-            {
-                case "student":
-                    entityName = "StudentId";
-                    break;
-                case "studentGroup":
-                    entityName = "SGroupName";
-                    break;
-                case "judge":
-                    entityName = "JudgeId";
-                    break;
-                case "judgeGroup":
-                   entityName = "JGroupId";
-                    break;
-            }
-            JArray jArray = getStudentGroups();
+            JArray jArray = getStudentGroups(entityName);
+
             List<int> idList = new List<int>();
             foreach(JObject jObject in jArray) 
             {
                foreach(var property in jObject)
                 {
-                   if( property.Key == entityName)
+                   if( property.Key == propertyName)
                     {
                         idList.Add(int.Parse(property.Value.ToString()));
                     }
                 }
                 
             }
+            /*
             foreach(int i in idList)
             {
                 Console.WriteLine(i);
 
-            }
+            }*/
             return idList;
         }
 
-        public int generateID(string entity)
+        public int generateID(string entityName)
         {
-            List<int> idList = getIDsList(entity);
+            List<int> idList = getIDsList(entityName);
             int id = 0;
             if (idList.Count != 0)
             {
