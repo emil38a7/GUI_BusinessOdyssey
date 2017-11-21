@@ -9,8 +9,11 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class StudentGroup
     {
-        public int sGroupNumber { get; set; }
-        public string sGroupName { get; set; }
+        public int sGroup_ID { get; set; }
+        public string sGroup_Name { get; set; }
+        public int track_ID { get; set; }
+
+/*
         private ObservableCollection<Student> studentGroupList = new ObservableCollection<Student>();
 
         public ObservableCollection<Student> StudentGroupList
@@ -18,5 +21,6 @@ namespace GUI_BusinessOdyssey.Entities
             get { return studentGroupList; }
             set { studentGroupList = value; }
         }
+        */
     }
 }

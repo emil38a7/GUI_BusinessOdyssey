@@ -41,22 +41,15 @@ namespace GUI_BusinessOdyssey.GUI
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
 
-            student.studentID = office.generateID(idList);
-            student.StudentName = studentNameBox.Text;
-            student.StudentSchool = studentSchoolBox.Text;
-            sGroup.StudentGroupList.Add(student);
-            sGroup.sGroupNumber = office.generateID(idList);
-            sGroup.sGroupName = groupNameTextBox.Text;
-
-            string jsonSGroup = JsonConvert.SerializeObject(sGroup);
+            student.studentID = office.generateID("SGroupName");
+            Console.WriteLine(student.studentID);
+            Console.ReadLine();
         }
-
 
         private void categoryNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedCategory = categoryNameComboBox.SelectedItem;
-            Console.WriteLine("****" + selectedCategory);
-            Console.ReadLine();
+            //Console.WriteLine("****" + selectedCategory);
         }
     }
 }
