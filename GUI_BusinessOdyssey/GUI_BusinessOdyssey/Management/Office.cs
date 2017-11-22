@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GUI_BusinessOdyssey.Management
 {
@@ -36,23 +37,33 @@ namespace GUI_BusinessOdyssey.Management
 
         public void postObject(object obj)
         {
-
-            using (var client = new WebClient())
+            try
             {
-                var dataString = JsonConvert.SerializeObject(obj);
-                Console.WriteLine(dataString);
-                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-                client.UploadString(new Uri(studentGroupController), "POST", dataString);
-                var response = client.DownloadData(studentGroupController);
-            }
+                using (var client = new WebClient())
+                {
+                    Uri uri = new Uri(studentGroupController);
+                    var dataString = JsonConvert.SerializeObject(obj);
+                    Console.WriteLine(dataString);
+                    client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
 
+
+                    var returnval = client.UploadString(uri, "POST", dataString);
+                    client.Dispose();
+
+                    //var response = client.DownloadData(studentGroupController);
+                }
+            }catch(Exception ex)
+            {
+
+            }
         }
+
 
         public JArray getStudentGroups(string entityName)
         {
             switch (entityName)
             {
-                case "student":                   
+                case "student":
                     propertyName = studentID;
                     accessPath = studentController;
                     break;
@@ -82,20 +93,20 @@ namespace GUI_BusinessOdyssey.Management
         }
 
         public List<int> getIDsList(string entityName)
-        {           
+        {
             JArray jArray = getStudentGroups(entityName);
 
             List<int> idList = new List<int>();
-            foreach(JObject jObject in jArray) 
+            foreach (JObject jObject in jArray)
             {
-               foreach(var property in jObject)
+                foreach (var property in jObject)
                 {
-                   if( property.Key == propertyName)
+                    if (property.Key == propertyName)
                     {
                         idList.Add(int.Parse(property.Value.ToString()));
                     }
-                }       
-            }            
+                }
+            }
             return idList;
         }
 
