@@ -1,6 +1,8 @@
 ﻿using GUI_BusinessOdyssey.Entities;
+using GUI_BusinessOdyssey.Management;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,19 +25,65 @@ namespace GUI_BusinessOdyssey.GUI
     {
         Judge judge;
         JudgeTeam jTeam;
+        Office office;
+        List<int> judgetIdList;
+        List<int> groupIdList;
+        List<Judge> tempJudgeList;
+        int track = 0;
 
         public AddJudgesControl()
         {
             InitializeComponent();
-            judge = new Judge();
-            jTeam = new JudgeTeam();
-            this.DataContext = jTeam;
+            office = new Office();
+            //studentIdList = new List<int>();
+            this.DataContext = office;
+            judgetIdList = office.getIDsList("judge");
+            groupIdList = office.getIDsList("judgeGroupID");
+            tempJudgeList = new List<Judge>();
+        }
+
+        private void resetController()
+        {
+            judgetIdList.Clear();
+            judgetIdList = office.getIDsList("judge");
+            groupIdList = office.getIDsList("judgeGroupID");
+            tempJudgeList.Clear();
+            office.DisplayList.Clear();
         }
 
         private void addJudgeButton_Click(object sender, RoutedEventArgs e)
         {
-            judge.judgeName = judgeNameBox.Text;
-            jTeam.JudgeTeamList.Add(judge);
+            int id = office.generateID(judgetIdList);
+
+            judge = new Judge
+            {
+                judgeId = id,
+                judgeName = judgeNameBox.Text,
+            };
+            office.DisplayList.Add(judge);
+            tempJudgeList.Add(judge);
+            judgetIdList.Add(id);
+        }
+
+        private void addJudgesTeamGroup_Click(object sender, RoutedEventArgs e)
+        {
+            jTeam = new JudgeTeam
+             {
+                 JGroupId = office.generateID(groupIdList),
+                 JGroupName = groupNameTextBox.Text,
+                 Judge = new ObservableCollection<Judge>()
+             };
+            //judge.JGroupId = jTeam.JGroupId;
+
+            foreach (Judge j in tempJudgeList)
+            {
+                j.JGroupId = jTeam.JGroupId;
+                jTeam.Judge.Add(j);
+            }
+            Console.WriteLine("Group ID" + jTeam.JGroupId);
+            office.postObject(jTeam);
+
+            resetController();
         }
     }
 }

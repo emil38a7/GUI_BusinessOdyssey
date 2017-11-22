@@ -9,15 +9,9 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class JudgeTeam
     {
-        public int jGroupNumber { get; set; }
-        public string jGroupName { get; set; }
-        public ObservableCollection<Judge> judgeTeamList = new ObservableCollection<Judge>();
+        public int JGroupId { get; set; }
+        public string JGroupName { get; set; }
 
-
-        public ObservableCollection<Judge> JudgeTeamList
-        {
-            get { return judgeTeamList; }
-            set { judgeTeamList = value; }
-        }
+        public ObservableCollection<Judge> Judge { get; set; }
     }
 }

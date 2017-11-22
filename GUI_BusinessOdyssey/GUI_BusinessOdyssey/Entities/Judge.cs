@@ -8,21 +8,24 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class Judge
     {
-        public int judgeID;
+        [NonSerialized]
 
-        public int JudgeID
+        public int judgeId;
+        public int JudgeId
         {
-            get { return judgeID; }
-            set { judgeID = value; }
+            get { return judgeId; }
+            set { judgeId = value; }
         }
 
+        [NonSerialized]
         public string judgeName;
-
         public string JudgeName
         {
             get { return judgeName; }
             set { judgeName = value; }
         }
-        public int JGroupID { get; set; }
+
+        public int JGroupId { get; set; }
+
     }
 }

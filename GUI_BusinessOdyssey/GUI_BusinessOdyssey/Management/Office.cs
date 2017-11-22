@@ -20,8 +20,8 @@ namespace GUI_BusinessOdyssey.Management
         string judgeGroupController = "http://localhost:55290/api/JudgesGroups";
         string studentID = "studentId";
         string studentGroupID = "sGroupId";
-        string judgeID = "JudgeId";
-        string judgeGroupID = "JGroupId";
+        string judgeID = "judgeId";
+        string judgeGroupID = "jGroupId";
 
         string propertyName = "";
         string accessPath = "";
@@ -35,13 +35,37 @@ namespace GUI_BusinessOdyssey.Management
             set { studentList = value; }
         }
 
+        ObservableCollection<object> displayList = new ObservableCollection<object>();
+        public ObservableCollection<object> DisplayList
+        {
+            get { return displayList; }
+            set { displayList = value; }
+        }
+
         public void postObject(object obj)
         {
+            Console.WriteLine(obj.GetType());
+
+            switch (obj.GetType().ToString())
+            {
+                case "GUI_BusinessOdyssey.Entities.Student":
+                    accessPath = studentController;
+                    break;
+                case "GUI_BusinessOdyssey.Entities.Judge":
+                    accessPath = judgeController;
+                    break;
+                case "GUI_BusinessOdyssey.Entities.StudentGroup":
+                    accessPath = studentGroupController;
+                    break;
+                case "GUI_BusinessOdyssey.Entities.JudgeTeam":
+                    accessPath = judgeGroupController;
+                    break;
+            }
             try
             {
                 using (var client = new WebClient())
                 {
-                    Uri uri = new Uri(studentGroupController);
+                    Uri uri = new Uri(accessPath);
                     var dataString = JsonConvert.SerializeObject(obj);
                    // Console.WriteLine(dataString);
                     client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
@@ -76,7 +100,7 @@ namespace GUI_BusinessOdyssey.Management
                     propertyName = judgeID;
                     accessPath = judgeController;
                     break;
-                case "judgeGroup":
+                case "judgeGroupID":
                     propertyName = judgeGroupID;
                     accessPath = judgeGroupController;
                     break;

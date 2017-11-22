@@ -30,16 +30,16 @@
     <Label Grid.Row="4"></Label>
     <TextBox Name="judgeNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Background="AntiqueWhite"></TextBox>
     <Label Content="Judges Team" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-    <ListView Grid.Column="3" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding JudgeTeamList}">
+    <ListView Grid.Column="3" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding DisplayList}">
         <ListView.View>
             <GridView>
-                <GridViewColumn Header="No" Width="20" DisplayMemberBinding="{Binding JudgeID}" />
+                <GridViewColumn Header="No" Width="20" DisplayMemberBinding="{Binding JudgeId}" />
                 <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding JudgeName}" />
             </GridView>
         </ListView.View>
     </ListView>
     <Button Name="addJudgeButton" Content="Add judge" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="4" Click="addJudgeButton_Click"></Button>
-    <Button Name="addJudgesTeamGroup" Content="Create team" Grid.ColumnSpan="2" Margin="5" Grid.Column="3" FontSize="15" Grid.Row="7"></Button>
+    <Button Name="addJudgesTeamGroup" Content="Create team" Grid.ColumnSpan="2" Margin="5" Grid.Column="3" FontSize="15" Grid.Row="7" Click="addJudgesTeamGroup_Click"></Button>
     <Label Content="Group Name" Grid.Column="3" Grid.Row="6"></Label>
     <TextBox Name="groupNameTextBox" Margin="5" Grid.Column="4" Grid.Row="6" ></TextBox>
     <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="4" Grid.Row="1"></Label>
