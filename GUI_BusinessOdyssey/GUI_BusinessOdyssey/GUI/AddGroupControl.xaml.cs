@@ -37,12 +37,21 @@ namespace GUI_BusinessOdyssey.GUI
         {
             InitializeComponent();
             office = new Office();
-            studentIdList = new List<int>();
+            //studentIdList = new List<int>();
             this.DataContext = office;
             studentIdList =  office.getIDsList("student");
             groupIdList = office.getIDsList("studentGroupID");
             tempStudentList = new List<Student>();
+        }
 
+        private void resetController()
+        {
+            studentIdList = new List<int>();
+            studentIdList = office.getIDsList("student");
+            Console.WriteLine("second list is" + studentIdList);
+            groupIdList = office.getIDsList("studentGroupID");
+            tempStudentList = new List<Student>();
+            office.StudentList.Clear();
         }
 
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
@@ -82,7 +91,8 @@ namespace GUI_BusinessOdyssey.GUI
             }
             Console.WriteLine("Group ID" + sGroup.SGroupId);
             office.postObject(sGroup);
-            Thread.Sleep(3000);
+
+            resetController();
         }
     }
 }

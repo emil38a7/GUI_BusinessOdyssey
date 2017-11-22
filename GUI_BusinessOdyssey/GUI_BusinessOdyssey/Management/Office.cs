@@ -43,9 +43,10 @@ namespace GUI_BusinessOdyssey.Management
                 {
                     Uri uri = new Uri(studentGroupController);
                     var dataString = JsonConvert.SerializeObject(obj);
-                    Console.WriteLine(dataString);
+                   // Console.WriteLine(dataString);
                     client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
 
+                    Console.WriteLine("Send to DB" + dataString);
 
                     var returnval = client.UploadString(uri, "POST", dataString);
                     client.Dispose();
@@ -86,7 +87,7 @@ namespace GUI_BusinessOdyssey.Management
             string resp = JsonConvert.ToString(response);
 
             dynamic studentGroups = JsonConvert.DeserializeObject<dynamic>(resp);
-            Console.WriteLine("***" + studentGroups.ToString());
+            //Console.WriteLine("***" + studentGroups.ToString());
 
             JArray jArray = JArray.Parse(studentGroups);
             return jArray;
