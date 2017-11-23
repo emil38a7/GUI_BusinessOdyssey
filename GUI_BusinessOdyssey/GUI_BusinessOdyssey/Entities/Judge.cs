@@ -27,5 +27,6 @@ namespace GUI_BusinessOdyssey.Entities
 
         public int JGroupId { get; set; }
 
+        public string JGroupKey { get; set; }
     }
 }
