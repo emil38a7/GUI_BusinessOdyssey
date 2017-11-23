@@ -24,10 +24,11 @@ namespace GUI_BusinessOdyssey.GUI
     public partial class AddJudgesControl : UserControl
     {
         Judge judge;
-        JudgeTeam jTeam;
+        JudgesGroup jTeam;
         Office office;
         List<int> judgetIdList;
         List<int> groupIdList;
+        List<string> judgeKeyList;
         List<Judge> tempJudgeList;
         int track = 0;
 
@@ -39,6 +40,7 @@ namespace GUI_BusinessOdyssey.GUI
             this.DataContext = office;
             judgetIdList = office.getIDsList("judge");
             groupIdList = office.getIDsList("judgeGroupID");
+            judgeKeyList = office.getKeyList("judgeKey");
             tempJudgeList = new List<Judge>();
         }
 
@@ -47,6 +49,7 @@ namespace GUI_BusinessOdyssey.GUI
             judgetIdList.Clear();
             judgetIdList = office.getIDsList("judge");
             groupIdList = office.getIDsList("judgeGroupID");
+            judgeKeyList = office.getKeyList("judgeKey");
             tempJudgeList.Clear();
             office.DisplayList.Clear();
         }
@@ -67,10 +70,12 @@ namespace GUI_BusinessOdyssey.GUI
 
         private void addJudgesTeamGroup_Click(object sender, RoutedEventArgs e)
         {
-            jTeam = new JudgeTeam
+            jTeam = new JudgesGroup
              {
                  JGroupId = office.generateID(groupIdList),
                  JGroupName = groupNameTextBox.Text,
+                 JGroupKey = office.generateKey(judgeKeyList),
+                 
                  Judge = new ObservableCollection<Judge>()
              };
             //judge.JGroupId = jTeam.JGroupId;
@@ -80,8 +85,9 @@ namespace GUI_BusinessOdyssey.GUI
                 j.JGroupId = jTeam.JGroupId;
                 jTeam.Judge.Add(j);
             }
-            Console.WriteLine("Group ID" + jTeam.JGroupId);
+            Console.WriteLine("Group ID" + jTeam.JGroupId + "key" + jTeam.JGroupKey);
             office.postObject(jTeam);
+            MessageBox.Show("Judge Team " + jTeam.JGroupName + "is registered" + Environment.NewLine + "The key is: " + jTeam.JGroupKey);
 
             resetController();
         }

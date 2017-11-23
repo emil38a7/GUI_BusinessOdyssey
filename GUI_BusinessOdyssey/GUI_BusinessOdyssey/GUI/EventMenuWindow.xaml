@@ -9,6 +9,6 @@
         mc:Ignorable="d"
         Title="EventMenuWindow" Height="400" Width="800">
     <Grid>
-        <controler:EventMenuControl></controler:EventMenuControl>
+        <controler:EventMenuControl Loaded="EventMenuControl_Loaded"></controler:EventMenuControl>
     </Grid>
 </Window>

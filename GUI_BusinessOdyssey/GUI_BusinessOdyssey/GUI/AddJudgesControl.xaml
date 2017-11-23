@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_BusinessOdyssey.GUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500"
+             Background="LightSkyBlue">
     <Grid>
         <Grid.RowDefinitions>
-        <RowDefinition Height="3*" />
+        <RowDefinition Height="2*" />
         <RowDefinition Height="2*" />
         <RowDefinition Height="2*" />
         <RowDefinition Height="2*" />
@@ -18,19 +19,19 @@
         <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="2*" />
-        <ColumnDefinition Width="2*" />
         <ColumnDefinition Width="3*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="4*" />
         <ColumnDefinition Width="4*" />
         <ColumnDefinition Width="4*" />
     </Grid.ColumnDefinitions>
     <Label Grid.ColumnSpan="5" Content="Judges Registration" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="20" ></Label>
-    <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a judge to team" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="12" ></Label>
+    <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a judge to team" VerticalAlignment="Center"></Label>
     <Label Grid.Row="2" Content="Name:"></Label>
     <Label Grid.Row="4"></Label>
-    <TextBox Name="judgeNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Background="AntiqueWhite"></TextBox>
+    <TextBox Name="judgeNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
     <Label Content="Judges Team" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-    <ListView Grid.Column="3" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding DisplayList}">
+    <ListView Grid.Column="3" Background="AntiqueWhite" Margin="5" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding DisplayList}">
         <ListView.View>
             <GridView>
                 <GridViewColumn Header="No" Width="20" DisplayMemberBinding="{Binding JudgeId}" />
@@ -41,7 +42,10 @@
     <Button Name="addJudgeButton" Content="Add judge" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="4" Click="addJudgeButton_Click"></Button>
     <Button Name="addJudgesTeamGroup" Content="Create team" Grid.ColumnSpan="2" Margin="5" Grid.Column="3" FontSize="15" Grid.Row="7" Click="addJudgesTeamGroup_Click"></Button>
     <Label Content="Group Name" Grid.Column="3" Grid.Row="6"></Label>
-    <TextBox Name="groupNameTextBox" Margin="5" Grid.Column="4" Grid.Row="6" ></TextBox>
+    <TextBox Name="groupNameTextBox" Grid.Column="4" Grid.Row="6" ></TextBox>
     <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="4" Grid.Row="1"></Label>
+        <Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border>
+        <Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border>
+
     </Grid>
 </UserControl>

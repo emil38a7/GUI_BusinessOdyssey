@@ -86,9 +86,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\Judge.cs" />
-    <Compile Include="Entities\JudgeTeam.cs" />
-    <Compile Include="Entities\Quesstion.cs" />
+    <Compile Include="Entities\JudgesGroup.cs" />
     <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Schedule.cs" />
+    <Compile Include="Entities\ScheduleMaster.cs" />
     <Compile Include="Entities\ScoreSheet.cs" />
     <Compile Include="Entities\ScoreSheetReg.cs" />
     <Compile Include="Entities\Student.cs" />

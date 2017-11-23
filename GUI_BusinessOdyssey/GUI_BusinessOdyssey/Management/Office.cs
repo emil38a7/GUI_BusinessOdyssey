@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,14 +15,15 @@ namespace GUI_BusinessOdyssey.Management
 {
     class Office
     {
-        string studentController = "http://localhost:55290/api/students";
-        string studentGroupController = "http://localhost:55290/api/studentGroups";
-        string judgeController = "http://localhost:55290/api/Judges";
-        string judgeGroupController = "http://localhost:55290/api/JudgesGroups";
+        string studentController = "http://localhost:49820/api/students";
+        string studentGroupController = "http://localhost:49820//api/studentGroups";
+        string judgeController = "http://localhost:49820/api/Judges";
+        string judgeGroupController = "http://localhost:49820/api/JudgesGroups";
         string studentID = "studentId";
         string studentGroupID = "sGroupId";
         string judgeID = "judgeId";
         string judgeGroupID = "jGroupId";
+        string judgeGroupKey = "jGroupKey";
 
         string propertyName = "";
         string accessPath = "";
@@ -42,6 +44,49 @@ namespace GUI_BusinessOdyssey.Management
             set { displayList = value; }
         }
 
+        public string generateMagicKey()
+        {
+            string key = "abcdefghijklmnopqrstvuwxyz0123456789";
+            char[] chars = new char[10];
+            Random random = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                chars[i] = key[random.Next(0, key.Length)];
+            }
+            Console.WriteLine("Key is: " + new string(chars));
+            return new string(chars);
+        }
+
+        public void postJson(Object obj)
+        {
+            string message = "http://localhost:49820/api/JudgesGroups";
+            var json = JsonConvert.SerializeObject(obj);
+            HttpWebRequest request = HttpWebRequest.Create(message) as HttpWebRequest;
+            if (!string.IsNullOrEmpty(json))
+            {
+                request.ContentType = "application/json";
+                request.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+            }
+            Console.WriteLine("Jason is :" + json);
+
+            using (HttpWebResponse webresponse = request.GetResponse() as HttpWebResponse)
+            {
+                using (StreamReader reader = new StreamReader(webresponse.GetResponseStream()))
+                {
+                    string response = reader.ReadToEnd();
+                    Console.WriteLine(response);
+                }
+            }
+            Console.ReadLine();
+        }
+
         public void postObject(object obj)
         {
             Console.WriteLine(obj.GetType());
@@ -60,6 +105,7 @@ namespace GUI_BusinessOdyssey.Management
                 case "GUI_BusinessOdyssey.Entities.JudgeTeam":
                     accessPath = judgeGroupController;
                     break;
+
             }
             try
             {
@@ -67,7 +113,7 @@ namespace GUI_BusinessOdyssey.Management
                 {
                     Uri uri = new Uri(accessPath);
                     var dataString = JsonConvert.SerializeObject(obj);
-                   // Console.WriteLine(dataString);
+                    // Console.WriteLine(dataString);
                     client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
 
                     Console.WriteLine("Send to DB" + dataString);
@@ -77,14 +123,15 @@ namespace GUI_BusinessOdyssey.Management
 
                     //var response = client.DownloadData(studentGroupController);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
         }
 
 
-        public JArray getStudentGroups(string entityName)
+        public JArray getEntity(string entityName)
         {
             switch (entityName)
             {
@@ -104,6 +151,10 @@ namespace GUI_BusinessOdyssey.Management
                     propertyName = judgeGroupID;
                     accessPath = judgeGroupController;
                     break;
+                case "judgeKey":
+                    propertyName = judgeGroupKey;
+                    accessPath = judgeGroupController;
+                    break;
             }
 
             WebClient client = new WebClient();
@@ -119,7 +170,7 @@ namespace GUI_BusinessOdyssey.Management
 
         public List<int> getIDsList(string entityName)
         {
-            JArray jArray = getStudentGroups(entityName);
+            JArray jArray = getEntity(entityName);
 
             List<int> idList = new List<int>();
             foreach (JObject jObject in jArray)
@@ -135,10 +186,36 @@ namespace GUI_BusinessOdyssey.Management
             return idList;
         }
 
+        public List<string> getKeyList(string entityName)
+        {
+            JArray jArray = getEntity(entityName);
+            List<string> keyList = new List<string>();
+            foreach (JObject jObject in jArray)
+            {
+                foreach (var property in jObject)
+                {
+                    if (property.Key == propertyName)
+                    {
+                        keyList.Add(property.Value.ToString());
+                    }
+                }
+            }
+            return keyList;
+        }
+
+        public string generateKey(List<string> keyList)
+        {
+            string uniqeKey = generateMagicKey();
+            if (keyList.Count == 0 || !keyList.Contains(uniqeKey))
+            {
+                return uniqeKey;
+            }
+            else return generateKey(keyList);
+        }
+
         public int generateID(List<int> idList)
         {
             //List<int> idList = getIDsList(entityName);
-
             int id = 0;
             if (idList.Count != 0)
             {

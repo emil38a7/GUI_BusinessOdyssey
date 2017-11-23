@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_BusinessOdyssey.Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace GUI_BusinessOdyssey
         public MainWindow()
         {
             InitializeComponent();
+            Office o = new Office();
+            o.generateMagicKey();
         }
 
         private void MainWindowControl_Loaded(object sender, RoutedEventArgs e)

@@ -10,5 +10,14 @@
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         </Style>
+        <Style x:Name="labelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="15" ></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Name="textBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Background" Value="AntiqueWhite"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -40,7 +40,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="Create Score Sheet" Grid.Row="3" FontSize="15" Click="Button_Click">
+        <Button Content="Create Time Schedule" Grid.Row="3" FontSize="15" Click="Button_Click">
             <Button.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>

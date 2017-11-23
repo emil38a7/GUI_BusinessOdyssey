@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace GUI_BusinessOdyssey.Entities
 {
-    class JudgeTeam
+    class JudgesGroup
     {
         public int JGroupId { get; set; }
         public string JGroupName { get; set; }
 
         public ObservableCollection<Judge> Judge { get; set; }
+
+        public string JGroupKey { get; set; }
+        public ICollection<ScheduleMaster> ScheduleMaster { get; set; }
+
     }
 }

@@ -23,5 +23,10 @@ namespace GUI_BusinessOdyssey.GUI
         {
             InitializeComponent();
         }
+
+        private void EventMenuControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

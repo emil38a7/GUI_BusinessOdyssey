@@ -25,17 +25,17 @@
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
         <Label Grid.ColumnSpan="5" Content="Group Registration" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="20" ></Label>
-        <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a student to group" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="12" ></Label>
+        <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a student to group" VerticalAlignment="Center"></Label>
         <Label Grid.Row="2" Content="Name:"></Label>
         <Label Grid.Row="3" Content="School:"></Label>
         <Label Grid.Row="4"></Label>
-        <TextBox x:Name="studentNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Background="AntiqueWhite"></TextBox>
+        <TextBox x:Name="studentNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Background="AntiqueWhite" TextChanged="studentNameBox_TextChanged"></TextBox>
         <TextBox x:Name="studentSchoolBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Background="AntiqueWhite"></TextBox>
         <Label Content="Group" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
         <ListView Grid.Column="3" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding StudentList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding StudentID}" />
+                    <GridViewColumn Header="ID" Width="25" DisplayMemberBinding="{Binding StudentID}" />
                     <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding StudentName}" />
                     <GridViewColumn Header="School" Width="100" DisplayMemberBinding="{Binding StudentSchool}" />
                 </GridView>

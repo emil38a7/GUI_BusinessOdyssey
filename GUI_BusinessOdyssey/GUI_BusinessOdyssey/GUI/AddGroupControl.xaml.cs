@@ -94,5 +94,10 @@ namespace GUI_BusinessOdyssey.GUI
 
             resetController();
         }
+
+        private void studentNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
