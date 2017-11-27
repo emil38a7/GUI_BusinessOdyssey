@@ -7,7 +7,7 @@
              xmlns:controler="clr-namespace:GUI_BusinessOdyssey.GUI"
 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600"
+             d:DesignHeight="450" d:DesignWidth="600"
              Background="LightSkyBlue">
 
     <Grid>
@@ -16,6 +16,8 @@
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -41,6 +43,14 @@
             </Button.Background>
         </Button>
         <Button Content="Create Time Schedule" Grid.Row="3" FontSize="15" Click="Button_Click">
+            <Button.Background>
+                <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Aqua" Offset="0"/>
+                    <GradientStop Color="Violet" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="View All Teams" Grid.Row="4" FontSize="15" Click="Button_Click">
             <Button.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>

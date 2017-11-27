@@ -24,6 +24,23 @@ namespace GUI_BusinessOdyssey.Management
         string judgeID = "judgeId";
         string judgeGroupID = "jGroupId";
         string judgeGroupKey = "jGroupKey";
+        string studentGroupName = "sGroupName";
+
+        ObservableCollection<StudentGroup> sGroupList;
+
+        public ObservableCollection<StudentGroup> SGroup
+        {
+            get { return sGroupList; }
+            set { sGroupList = value; }
+        }
+
+        ObservableCollection<Student> student;
+
+        public ObservableCollection<Student> Student
+        {
+            get { return student; }
+            set { student = value; }
+        }
 
         string propertyName = "";
         string accessPath = "";
@@ -87,6 +104,22 @@ namespace GUI_BusinessOdyssey.Management
             Console.ReadLine();
         }
 
+        public void groupView(string entityName)
+        {
+            sGroupList = new ObservableCollection<StudentGroup>();
+            student = new ObservableCollection<Entities.Student>(); 
+            JArray jArray = getEntity(entityName);
+            foreach(JObject sg in jArray)
+            {
+                SGroup.Add(sg.ToObject<StudentGroup>());
+            }
+        }
+
+        public void createTimeSchedule()
+        {
+
+        }
+
         public void postObject(object obj)
         {
             Console.WriteLine(obj.GetType());
@@ -130,7 +163,6 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
-
         public JArray getEntity(string entityName)
         {
             switch (entityName)
@@ -141,6 +173,10 @@ namespace GUI_BusinessOdyssey.Management
                     break;
                 case "studentGroupID":
                     propertyName = studentGroupID;
+                    accessPath = studentGroupController;
+                    break;
+                case "SGroupName":
+                    propertyName = studentGroupName;
                     accessPath = studentGroupController;
                     break;
                 case "judge":
@@ -154,7 +190,7 @@ namespace GUI_BusinessOdyssey.Management
                 case "judgeKey":
                     propertyName = judgeGroupKey;
                     accessPath = judgeGroupController;
-                    break;
+                    break;                     
             }
 
             WebClient client = new WebClient();
@@ -187,7 +223,7 @@ namespace GUI_BusinessOdyssey.Management
         }
 
         public List<string> getKeyList(string entityName)
-        {
+        {          
             JArray jArray = getEntity(entityName);
             List<string> keyList = new List<string>();
             foreach (JObject jObject in jArray)
@@ -201,6 +237,24 @@ namespace GUI_BusinessOdyssey.Management
                 }
             }
             return keyList;
+        }
+
+        public string verifyStudentGroupName(List <string> groupNames, string groupName)
+        {
+            if (groupNames.Count == 0 || !groupNames.Contains(groupName))
+            {
+                return groupName;
+            }
+            else {
+                MessageBox.Show("You must enter uniqe group name");
+                return null;
+            };
+        }
+
+        public char generateJudgeTeamName(int id)
+        {
+            char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R'};
+            return charList[id - 1];
         }
 
         public string generateKey(List<string> keyList)

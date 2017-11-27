@@ -41,11 +41,8 @@
     </ListView>
     <Button Name="addJudgeButton" Content="Add judge" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="4" Click="addJudgeButton_Click"></Button>
     <Button Name="addJudgesTeamGroup" Content="Create team" Grid.ColumnSpan="2" Margin="5" Grid.Column="3" FontSize="15" Grid.Row="7" Click="addJudgesTeamGroup_Click"></Button>
-    <Label Content="Group Name" Grid.Column="3" Grid.Row="6"></Label>
-    <TextBox Name="groupNameTextBox" Grid.Column="4" Grid.Row="6" ></TextBox>
-    <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="4" Grid.Row="1"></Label>
+    <Label x:Name="judgeTeamName" Grid.Column="4" Grid.Row="1"></Label>
         <Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border>
         <Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border>
-
     </Grid>
 </UserControl>

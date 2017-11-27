@@ -31,7 +31,7 @@ namespace GUI_BusinessOdyssey.GUI
             if ((string)button.Content == "Create Student Team")
             {
                 AddJudgePanel.Visibility = Visibility.Hidden;
-               // AddScoreSheet.Visibility = Visibility.Hidden;
+                // AddScoreSheet.Visibility = Visibility.Hidden;
 
                 AddGroupPanel.Visibility = Visibility.Visible;
             }
@@ -42,6 +42,12 @@ namespace GUI_BusinessOdyssey.GUI
 
                 AddJudgePanel.Visibility = Visibility.Visible;
             }
+            else if ((string)button.Content == "View All Teams")
+            {
+                ViewWindow vw = new ViewWindow();
+                vw.Show();
+            }
+
             else
             {
                 AddJudgePanel.Visibility = Visibility.Hidden;

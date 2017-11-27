@@ -19,5 +19,8 @@
             <Setter Property="Background" Value="AntiqueWhite"></Setter>
             <Setter Property="FontSize" Value="15"></Setter>
         </Style>
+        <Style x:Name="usercontrolStyle" TargetType="UserControl">
+            <Setter Property="Background" Value="LightSkyBlue"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

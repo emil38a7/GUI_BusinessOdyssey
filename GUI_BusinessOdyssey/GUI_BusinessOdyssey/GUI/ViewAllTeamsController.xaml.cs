@@ -14,24 +14,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUI_BusinessOdyssey
+namespace GUI_BusinessOdyssey.GUI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ViewAllTeamsController.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ViewAllTeamsController : UserControl
     {
-        public MainWindow()
+        Office office = new Office();
+        public ViewAllTeamsController()
         {
             InitializeComponent();
-            Office o = new Office();
-            o.generateMagicKey();
-            //o.groupView("SGroupName");
-        }
-
-        private void MainWindowControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            this.DataContext = office;
+            office.groupView("SGroupName"); ;
         }
     }
 }

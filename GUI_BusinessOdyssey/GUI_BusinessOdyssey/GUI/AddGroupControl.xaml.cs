@@ -30,6 +30,7 @@ namespace GUI_BusinessOdyssey.GUI
         Office office;
         List<int> studentIdList;
         List<int> groupIdList;
+        List<string> sGroupNameList;
         List<Student> tempStudentList;
         int track = 0;
 
@@ -41,6 +42,7 @@ namespace GUI_BusinessOdyssey.GUI
             this.DataContext = office;
             studentIdList =  office.getIDsList("student");
             groupIdList = office.getIDsList("studentGroupID");
+            sGroupNameList = office.getKeyList("SGroupName");
             tempStudentList = new List<Student>();
         }
 
@@ -50,6 +52,7 @@ namespace GUI_BusinessOdyssey.GUI
             studentIdList = office.getIDsList("student");
             Console.WriteLine("second list is" + studentIdList);
             groupIdList = office.getIDsList("studentGroupID");
+            sGroupNameList = office.getKeyList("SGroupName");
             tempStudentList = new List<Student>();
             office.StudentList.Clear();
         }
@@ -79,7 +82,7 @@ namespace GUI_BusinessOdyssey.GUI
             sGroup = new StudentGroup
             {
                 SGroupId = office.generateID(groupIdList),
-                SGroupName = groupNameTextBox.Text,
+                SGroupName = office.verifyStudentGroupName(sGroupNameList, groupNameTextBox.Text),
                 TrackId = track,
                 student = new ObservableCollection<Student>()
             };

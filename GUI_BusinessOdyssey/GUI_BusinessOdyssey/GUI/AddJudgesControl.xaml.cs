@@ -70,11 +70,12 @@ namespace GUI_BusinessOdyssey.GUI
 
         private void addJudgesTeamGroup_Click(object sender, RoutedEventArgs e)
         {
+            int judgeID = office.generateID(groupIdList);
             jTeam = new JudgesGroup
              {
-                 JGroupId = office.generateID(groupIdList),
-                 JGroupName = groupNameTextBox.Text,
-                 JGroupKey = office.generateKey(judgeKeyList),
+                JGroupId = judgeID,
+                JGroupName = office.generateJudgeTeamName(judgeID).ToString(),
+                JGroupKey = office.generateKey(judgeKeyList),
                  
                  Judge = new ObservableCollection<Judge>()
              };
