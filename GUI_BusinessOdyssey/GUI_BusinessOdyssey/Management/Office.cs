@@ -21,7 +21,7 @@ namespace GUI_BusinessOdyssey.Management
         string judgeGroupController = "http://localhost:63600//api/JudgesGroups";
 
         string studentID = "studentId";
-        string studentGroupID = "sGroupId";
+        string studentGroupID = "sGroupName";
         string judgeID = "judgeId";
         string judgeGroupID = "jGroupName";
         string judgeGroupKey = "jGroupKey";
@@ -45,11 +45,11 @@ namespace GUI_BusinessOdyssey.Management
             set { sGroupList = value; }
         }
 
-        ObservableCollection<Student> student;
-        public ObservableCollection<Student> Student
+        ObservableCollection<JudgesGroup> jGroupList;
+        public ObservableCollection<JudgesGroup> JGroup
         {
-            get { return student; }
-            set { student = value; }
+            get { return jGroupList; }
+            set { jGroupList = value; }
         }
 
         string propertyName = "";
@@ -79,7 +79,7 @@ namespace GUI_BusinessOdyssey.Management
             Student student = new Student
             {
                 StudentName = studentName,
-                StudentSchool = studentSchool
+                StudentSchool = studentSchool,             
             };
             StudentList.Add(student);
             return student;
@@ -89,18 +89,18 @@ namespace GUI_BusinessOdyssey.Management
         {
             sGroupNameList = getKeyList(studentGroupID);
 
-            StudentGroup sg = new StudentGroup();
-            sg.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
-            sg.TrackId = track+1;
+            StudentGroup sGroup = new StudentGroup();
+            sGroup.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
+            sGroup.TrackId = track+1;
 
-            Console.WriteLine(sg.TrackId);
+            Console.WriteLine(sGroup.TrackId);
 
             foreach(Student s in StudentList)
             {
-                s.SGroupName = sg.SGroupName;
-                sg.Student.Add(s);
+                s.SGroupName = sGroup.SGroupName;
+                sGroup.Student.Add(s);
             }
-            return sg;
+            return sGroup;
         }  
 
         public Judge createJudge()
@@ -118,12 +118,16 @@ namespace GUI_BusinessOdyssey.Management
             jGroupNameList = getKeyList(judgeGroupID);
             JudgesGroup jGroup = new JudgesGroup
             {
-                JGroupName = generateJudgeTeamName(jGroupNameList)
+                JGroupName = generateJudgeTeamName(jGroupNameList),
+                JGroupKey = generateKey(jGroupNameList)
             };
             foreach (Judge j in JudgeList)
             {
                 j.JGroupName = jGroup.JGroupName;
+                jGroup.Judge.Add(j);
             }
+            Console.WriteLine(jGroup.JGroupKey);
+
             return jGroup;
         }
 
@@ -144,46 +148,61 @@ namespace GUI_BusinessOdyssey.Management
             }
             Console.WriteLine("Key is: " + new string(chars));
             return new string(chars);
-        }
+        }     
 
-        public void postJson(Object obj)
+        public void groupView(string groups, string members )
         {
-            string message = "http://localhost:49820/api/JudgesGroups";
-            var json = JsonConvert.SerializeObject(obj);
-            HttpWebRequest request = HttpWebRequest.Create(message) as HttpWebRequest;
-            if (!string.IsNullOrEmpty(json))
-            {
-                request.ContentType = "application/json";
-                request.Method = "POST";
-
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                {
-                    streamWriter.Write(json);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
-            }
-            Console.WriteLine("Jason is :" + json);
-
-            using (HttpWebResponse webresponse = request.GetResponse() as HttpWebResponse)
-            {
-                using (StreamReader reader = new StreamReader(webresponse.GetResponseStream()))
-                {
-                    string response = reader.ReadToEnd();
-                    Console.WriteLine(response);
-                }
-            }
-            Console.ReadLine();
-        }
-
-        public void groupView(string entityName)
-        {
-            sGroupList = new ObservableCollection<StudentGroup>();
-            student = new ObservableCollection<Student>(); 
-            JArray jArray = getEntity(entityName);
+            SGroup = new ObservableCollection<StudentGroup>();
+            JArray jArray = getEntity(groups);
             foreach(JObject sg in jArray)
             {
                 SGroup.Add(sg.ToObject<StudentGroup>());
+            }
+
+            List<Student> sList = new List<Student>();
+            JArray jArrayS = getEntity("studentId");
+            foreach (JObject sg in jArrayS)
+            {
+                sList.Add(sg.ToObject<Student>());
+            }
+
+            foreach (StudentGroup sg in SGroup)
+            {
+                foreach (Student s in sList)
+                {
+                    if (sg.SGroupName == s.SGroupName)
+                    {
+                        sg.Student.Add(s);
+                    }
+                }
+            }
+        }
+
+        public void judgeGroupView(string groups, string members)
+        {
+            JGroup = new ObservableCollection<JudgesGroup>();
+            JArray jArray = getEntity(groups);
+            foreach (JObject sg in jArray)
+            {
+                JGroup.Add(sg.ToObject<JudgesGroup>());
+            }
+
+            List<Judge> memberList = new List<Judge>();
+            JArray jArrayS = getEntity(members);
+            foreach (JObject sg in jArrayS)
+            {
+                memberList.Add(sg.ToObject<Judge>());
+            }
+
+            foreach (JudgesGroup jg in JGroup)
+            {
+                foreach (Judge j in memberList)
+                {
+                    if (jg.JGroupName == j.JGroupName)
+                    {
+                        jg.Judge.Add(j);
+                    }
+                }
             }
         }
 
@@ -223,14 +242,14 @@ namespace GUI_BusinessOdyssey.Management
                     Console.WriteLine("Send to DB" + dataString);
 
                     var returnval = client.UploadString(uri, "POST", dataString);
-                    client.Dispose();
+                    //client.Dispose();
 
                     //var response = client.DownloadData(studentGroupController);
                 }
             }
             catch (Exception ex)
             {
-
+                //Console.WriteLine(ex.InnerException.Message);
             }
         }
 
@@ -246,11 +265,11 @@ namespace GUI_BusinessOdyssey.Management
                     propertyName = studentGroupID;
                     accessPath = studentGroupController;
                     break;
-                case "SGroupName":
+                case "sGroupName":
                     propertyName = studentGroupName;
                     accessPath = studentGroupController;
                     break;
-                case "judge":
+                case "judgeId":
                     propertyName = judgeID;
                     accessPath = judgeController;
                     break;

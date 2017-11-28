@@ -26,7 +26,8 @@ namespace GUI_BusinessOdyssey.GUI
         {
             InitializeComponent();
             this.DataContext = office;
-            office.groupView("SGroupName"); ;
+            office.groupView("sGroupName", "studentId");
+            office.judgeGroupView("jGroupName", "judgeId");
         }
     }
 }

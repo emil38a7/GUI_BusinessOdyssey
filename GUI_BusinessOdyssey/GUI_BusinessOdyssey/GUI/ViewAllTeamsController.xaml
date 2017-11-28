@@ -21,14 +21,14 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <TextBlock Text="Customer ID: " />
-                        <TextBlock Text="{Binding SGroupName}" FontWeight="Bold" />
+                        <TextBlock Text="Group: " Width="75" />
+                        <TextBlock Text="{Binding SGroupName}" Width="75" FontWeight="Bold" />
                         <ListView ItemsSource="{Binding Student}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <WrapPanel>
                                         <TextBlock Text="Student name: " />
-                                        <TextBlock Text="{Binding StudentName}" FontWeight="Bold" />
+                                        <TextBlock Width="75" Text="{Binding StudentName}" FontWeight="Bold" />
                                     </WrapPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -37,14 +37,25 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Column="1" Margin="10" Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding StudentList}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ID" Width="25" DisplayMemberBinding="{Binding StudentID}" />
-                    <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding StudentName}" />
-                    <GridViewColumn Header="School" Width="100" DisplayMemberBinding="{Binding StudentSchool}" />
-                </GridView>
-            </ListView.View>
+        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding JGroup}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="Group: " Width="75" />
+                        <TextBlock Text="{Binding JGroupName}" Width="75" FontWeight="Bold" />
+                        <ListView ItemsSource="{Binding Judge}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="Judge: " />
+                                        <TextBlock Width="75" Text="{Binding JudgeName}" FontWeight="Bold" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>

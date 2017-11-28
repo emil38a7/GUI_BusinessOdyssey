@@ -15,6 +15,11 @@ namespace GUI_BusinessOdyssey.Entities
         public ObservableCollection<Judge> Judge { get; set; }
         public ObservableCollection<ScheduleMaster> ScheduleMaster { get; set; }
         public ObservableCollection<ScoreSheetReg> ScoreSheetReg { get; set; }
-
+        public JudgesGroup()
+        {
+            Judge = new ObservableCollection<Entities.Judge>();
+            ScheduleMaster = new ObservableCollection<Entities.ScheduleMaster>();
+            ScoreSheetReg = new ObservableCollection<Entities.ScoreSheetReg>();
+        }
     }
 }
