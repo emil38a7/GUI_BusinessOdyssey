@@ -29,9 +29,9 @@
     <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a judge to team" VerticalAlignment="Center"></Label>
     <Label Grid.Row="2" Content="Name:"></Label>
     <Label Grid.Row="4"></Label>
-    <TextBox Name="judgeNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
+    <TextBox Name="judgeNameBox" Text="{Binding judgeName}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
     <Label Content="Judges Team" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-    <ListView Grid.Column="3" Background="AntiqueWhite" Margin="5" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding DisplayList}">
+        <ListView Grid.Column="3" Background="AntiqueWhite" Margin="5" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding JudgeList}">
         <ListView.View>
             <GridView>
                 <GridViewColumn Header="No" Width="20" DisplayMemberBinding="{Binding JudgeId}" />

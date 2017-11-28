@@ -9,13 +9,18 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class StudentGroup
     {
-
-        public int SGroupId { get; set; }
         public string SGroupName { get; set; }
         public int TrackId { get; set; }
 
+        public ObservableCollection<ScheduleMaster> ScheduleMaster { get; set; }
         public ObservableCollection<ScoreSheetReg> ScoreSheetReg { get; set; }
+        public ObservableCollection<Student> Student { get; set; }
 
-        public ObservableCollection<Student> student { get; set; }    
+        public StudentGroup()
+        {
+            ScheduleMaster = new ObservableCollection<Entities.ScheduleMaster>();
+            ScoreSheetReg = new ObservableCollection<Entities.ScoreSheetReg>();
+            Student = new ObservableCollection<Entities.Student>();
+        }
     }
 }

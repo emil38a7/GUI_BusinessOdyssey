@@ -24,8 +24,8 @@ namespace GUI_BusinessOdyssey
         public MainWindow()
         {
             InitializeComponent();
-            Office o = new Office();
-            o.generateMagicKey();
+            //Office o = new Office();
+           // o.generateMagicKey();
             //o.groupView("SGroupName");
         }
 

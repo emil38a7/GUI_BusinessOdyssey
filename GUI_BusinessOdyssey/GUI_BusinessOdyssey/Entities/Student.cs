@@ -8,30 +8,11 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class Student
     {
-        [NonSerialized]
-        public int studentID;
-        public int StudentID
-        {
-            get { return studentID; }
-            set { studentID = value; }
-        }
+        public int StudentId { get; set; }
+        public string StudentName { get; set; }
+        public string StudentSchool { get; set; }
+        public string SGroupName { get; set; }
 
-        [NonSerialized]
-        public string studentName;
-        public string StudentName
-        {
-            get { return studentName; }
-            set { studentName = value; }
-        }
-
-        [NonSerialized]
-        public string studentSchool;
-        public string StudentSchool
-        {
-            get { return studentSchool; }
-            set { studentSchool = value; }
-        }
-
-        public int groupID { get; set; }
+        public StudentGroup SGroupNameNavigation { get; set; }
     }
 }

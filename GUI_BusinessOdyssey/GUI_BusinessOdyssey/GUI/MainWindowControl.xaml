@@ -24,23 +24,23 @@
         </Grid.ColumnDefinitions>
         <Label Content="Bussines Odyssey" Grid.Column="1" Grid.ColumnSpan="5" FontSize="25" FontWeight="Heavy" HorizontalContentAlignment="Center" VerticalAlignment="Top"></Label>
         <Label Content="- Yearly enterprenership competition -" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" FontSize="15" FontStyle="Italic"></Label>
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold"  Content="Previous Events" Click="Button_Click">
-            <Button.Background>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold">
+            <Label.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>
                     <GradientStop Color="Violet" Offset="1"/>
                 </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="10" Content="Running Event" FontSize="20" FontWeight="DemiBold">
-            <Button.Background>
+            </Label.Background>
+        </Label>
+        <Label Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold">
+            <Label.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Violet" Offset="0"/>
                     <GradientStop Color="Aqua" Offset="1"/>
                 </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold" Content="New Event" Click="Button_Click">
+            </Label.Background>
+        </Label>
+        <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold" Content="New Event" Click="Button_Click">
             <Button.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>

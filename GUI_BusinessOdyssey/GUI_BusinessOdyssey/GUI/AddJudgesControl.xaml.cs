@@ -22,75 +22,24 @@ namespace GUI_BusinessOdyssey.GUI
     /// Interaction logic for AddJudgesControl.xaml
     /// </summary>
     public partial class AddJudgesControl : UserControl
-    {
-        Judge judge;
-        JudgesGroup jTeam;
+    { 
         Office office;
-        List<int> judgetIdList;
-        List<int> groupIdList;
-        List<string> judgeKeyList;
-        List<Judge> tempJudgeList;
-        int track = 0;
-
+       
         public AddJudgesControl()
         {
             InitializeComponent();
             office = new Office();
-            //studentIdList = new List<int>();
             this.DataContext = office;
-            judgetIdList = office.getIDsList("judge");
-            groupIdList = office.getIDsList("judgeGroupID");
-            judgeKeyList = office.getKeyList("judgeKey");
-            tempJudgeList = new List<Judge>();
-        }
-
-        private void resetController()
-        {
-            judgetIdList.Clear();
-            judgetIdList = office.getIDsList("judge");
-            groupIdList = office.getIDsList("judgeGroupID");
-            judgeKeyList = office.getKeyList("judgeKey");
-            tempJudgeList.Clear();
-            office.DisplayList.Clear();
         }
 
         private void addJudgeButton_Click(object sender, RoutedEventArgs e)
         {
-            int id = office.generateID(judgetIdList);
-
-            judge = new Judge
-            {
-                judgeId = id,
-                judgeName = judgeNameBox.Text,
-            };
-            office.DisplayList.Add(judge);
-            tempJudgeList.Add(judge);
-            judgetIdList.Add(id);
+            office.createJudge();
         }
 
         private void addJudgesTeamGroup_Click(object sender, RoutedEventArgs e)
         {
-            int judgeID = office.generateID(groupIdList);
-            jTeam = new JudgesGroup
-             {
-                JGroupId = judgeID,
-                JGroupName = office.generateJudgeTeamName(judgeID).ToString(),
-                JGroupKey = office.generateKey(judgeKeyList),
-                 
-                 Judge = new ObservableCollection<Judge>()
-             };
-            //judge.JGroupId = jTeam.JGroupId;
-
-            foreach (Judge j in tempJudgeList)
-            {
-                j.JGroupId = jTeam.JGroupId;
-                jTeam.Judge.Add(j);
-            }
-            Console.WriteLine("Group ID" + jTeam.JGroupId + "key" + jTeam.JGroupKey);
-            office.postObject(jTeam);
-            MessageBox.Show("Judge Team " + jTeam.JGroupName + "is registered" + Environment.NewLine + "The key is: " + jTeam.JGroupKey);
-
-            resetController();
+            office.postObject(office.createJudgesGroup());
         }
     }
 }

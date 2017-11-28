@@ -9,13 +9,12 @@ namespace GUI_BusinessOdyssey.Entities
 {
     class JudgesGroup
     {
-        public int JGroupId { get; set; }
         public string JGroupName { get; set; }
+        public string JGroupKey { get; set; }
 
         public ObservableCollection<Judge> Judge { get; set; }
-
-        public string JGroupKey { get; set; }
-        public ICollection<ScheduleMaster> ScheduleMaster { get; set; }
+        public ObservableCollection<ScheduleMaster> ScheduleMaster { get; set; }
+        public ObservableCollection<ScoreSheetReg> ScoreSheetReg { get; set; }
 
     }
 }

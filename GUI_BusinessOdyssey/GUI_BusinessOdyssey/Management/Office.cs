@@ -15,19 +15,30 @@ namespace GUI_BusinessOdyssey.Management
 {
     class Office
     {
-        string studentController = "http://localhost:49820/api/students";
-        string studentGroupController = "http://localhost:49820//api/studentGroups";
-        string judgeController = "http://localhost:49820/api/Judges";
-        string judgeGroupController = "http://localhost:49820/api/JudgesGroups";
+        string studentController = "http://localhost:63600//api/Students";
+        string studentGroupController = "http://localhost:63600//api/StudentGroups";
+        string judgeController = "http://localhost:63600//api/Judges";
+        string judgeGroupController = "http://localhost:63600//api/JudgesGroups";
+
         string studentID = "studentId";
         string studentGroupID = "sGroupId";
         string judgeID = "judgeId";
-        string judgeGroupID = "jGroupId";
+        string judgeGroupID = "jGroupName";
         string judgeGroupKey = "jGroupKey";
         string studentGroupName = "sGroupName";
 
-        ObservableCollection<StudentGroup> sGroupList;
+        public string studentName { get; set; }
+        public string studentSchool { get; set; }
+        public string groupName { get; set; }
+        public int track { get; set; }
+        public string judgeName { get; set; }
 
+        List<string> sGroupNameList;
+        List<string> jGroupNameList;
+
+        List<Student> tempStudentList;
+
+        ObservableCollection<StudentGroup> sGroupList;
         public ObservableCollection<StudentGroup> SGroup
         {
             get { return sGroupList; }
@@ -35,7 +46,6 @@ namespace GUI_BusinessOdyssey.Management
         }
 
         ObservableCollection<Student> student;
-
         public ObservableCollection<Student> Student
         {
             get { return student; }
@@ -45,8 +55,6 @@ namespace GUI_BusinessOdyssey.Management
         string propertyName = "";
         string accessPath = "";
 
-        public List<int> finalIdList { get; set; }
-
         ObservableCollection<Student> studentList = new ObservableCollection<Student>();
         public ObservableCollection<Student> StudentList
         {
@@ -54,13 +62,77 @@ namespace GUI_BusinessOdyssey.Management
             set { studentList = value; }
         }
 
-        ObservableCollection<object> displayList = new ObservableCollection<object>();
-        public ObservableCollection<object> DisplayList
+        ObservableCollection<object> judgeList = new ObservableCollection<object>();
+        public ObservableCollection<object> JudgeList
         {
-            get { return displayList; }
-            set { displayList = value; }
+            get { return judgeList; }
+            set { judgeList = value; }
         }
 
+        public Office()
+        {
+            tempStudentList = new List<Student>();
+        }
+
+        public Student createStudent()
+        {
+            Student student = new Student
+            {
+                StudentName = studentName,
+                StudentSchool = studentSchool
+            };
+            StudentList.Add(student);
+            return student;
+        }
+
+        public StudentGroup createSGroup()
+        {
+            sGroupNameList = getKeyList(studentGroupID);
+
+            StudentGroup sg = new StudentGroup();
+            sg.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
+            sg.TrackId = track+1;
+
+            Console.WriteLine(sg.TrackId);
+
+            foreach(Student s in StudentList)
+            {
+                s.SGroupName = sg.SGroupName;
+                sg.Student.Add(s);
+            }
+            return sg;
+        }  
+
+        public Judge createJudge()
+        {
+            Judge judge = new Judge
+            {
+                JudgeName = judgeName
+            };
+            JudgeList.Add(judge);
+            return judge;
+        }
+
+        public JudgesGroup createJudgesGroup()
+        {
+            jGroupNameList = getKeyList(judgeGroupID);
+            JudgesGroup jGroup = new JudgesGroup
+            {
+                JGroupName = generateJudgeTeamName(jGroupNameList)
+            };
+            foreach (Judge j in JudgeList)
+            {
+                j.JGroupName = jGroup.JGroupName;
+            }
+            return jGroup;
+        }
+
+        public string generateJudgeTeamName(List<string> list)
+        {
+            char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
+            return charList[list.Count].ToString();
+        }
+ 
         public string generateMagicKey()
         {
             string key = "abcdefghijklmnopqrstvuwxyz0123456789";
@@ -107,7 +179,7 @@ namespace GUI_BusinessOdyssey.Management
         public void groupView(string entityName)
         {
             sGroupList = new ObservableCollection<StudentGroup>();
-            student = new ObservableCollection<Entities.Student>(); 
+            student = new ObservableCollection<Student>(); 
             JArray jArray = getEntity(entityName);
             foreach(JObject sg in jArray)
             {
@@ -117,12 +189,12 @@ namespace GUI_BusinessOdyssey.Management
 
         public void createTimeSchedule()
         {
-
+            Schedule schedule = new Schedule();
         }
 
         public void postObject(object obj)
         {
-            Console.WriteLine(obj.GetType());
+           // Console.WriteLine(obj.GetType());
 
             switch (obj.GetType().ToString())
             {
@@ -138,7 +210,6 @@ namespace GUI_BusinessOdyssey.Management
                 case "GUI_BusinessOdyssey.Entities.JudgeTeam":
                     accessPath = judgeGroupController;
                     break;
-
             }
             try
             {
@@ -167,11 +238,11 @@ namespace GUI_BusinessOdyssey.Management
         {
             switch (entityName)
             {
-                case "student":
+                case "studentId":
                     propertyName = studentID;
                     accessPath = studentController;
                     break;
-                case "studentGroupID":
+                case "sGroupId":
                     propertyName = studentGroupID;
                     accessPath = studentGroupController;
                     break;
@@ -183,7 +254,7 @@ namespace GUI_BusinessOdyssey.Management
                     propertyName = judgeID;
                     accessPath = judgeController;
                     break;
-                case "judgeGroupID":
+                case "jGroupName":
                     propertyName = judgeGroupID;
                     accessPath = judgeGroupController;
                     break;
@@ -253,7 +324,7 @@ namespace GUI_BusinessOdyssey.Management
 
         public char generateJudgeTeamName(int id)
         {
-            char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R'};
+            char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P','Q', 'R', 'S', 'T'};
             return charList[id - 1];
         }
 
