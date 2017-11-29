@@ -73,7 +73,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\GenerateSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\MainWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\ScheduleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,8 +123,14 @@
     <Compile Include="GUI\EventMenuWindow.xaml.cs">
       <DependentUpon>EventMenuWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\GenerateSchedule.xaml.cs">
+      <DependentUpon>GenerateSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MainWindowControl.xaml.cs">
       <DependentUpon>MainWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ScheduleWindow.xaml.cs">
+      <DependentUpon>ScheduleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\ViewAllTeamsController.xaml.cs">
       <DependentUpon>ViewAllTeamsController.xaml</DependentUpon>

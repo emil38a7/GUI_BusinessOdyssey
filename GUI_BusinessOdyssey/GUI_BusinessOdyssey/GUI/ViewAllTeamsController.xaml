@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Label Content="students"></Label>
         <Label Content="judges" Grid.Column="1" ></Label>
-        <ListView Grid.Row="1" ItemsSource="{Binding SGroup}">
+        <ListView Grid.Row="1" ItemsSource="{Binding DisplayStudents}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -37,7 +37,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding JGroup}">
+        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding DisplayJudges}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>

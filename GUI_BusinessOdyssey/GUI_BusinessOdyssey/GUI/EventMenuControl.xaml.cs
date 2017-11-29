@@ -53,7 +53,10 @@ namespace GUI_BusinessOdyssey.GUI
                 AddJudgePanel.Visibility = Visibility.Hidden;
                 AddGroupPanel.Visibility = Visibility.Hidden;
 
-                //AddScoreSheet.Visibility = Visibility.Visible;
+                ScheduleWindow sw = new ScheduleWindow();
+                sw.Show();
+
+                ////AddScoreSheet.Visibility = Visibility.Visible;
             }
         }
     }
