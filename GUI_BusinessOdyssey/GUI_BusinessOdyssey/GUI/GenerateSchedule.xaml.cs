@@ -17,17 +17,16 @@ using System.Windows.Shapes;
 namespace GUI_BusinessOdyssey.GUI
 {
     /// <summary>
-    /// Interaction logic for ViewAllTeamsController.xaml
+    /// Interaction logic for GenerateSchedule.xaml
     /// </summary>
-    public partial class ViewAllTeamsController : UserControl
+    public partial class GenerateSchedule : UserControl
     {
-        Office office = new Office();
-        public ViewAllTeamsController()
+        public GenerateSchedule()
         {
             InitializeComponent();
+            Office office = new Office();
             this.DataContext = office;
-            office.groupView("sGroupName", "studentId");
-            office.judgeGroupView("jGroupName", "judgeId");
+            office.createTimeSchedule();
         }
     }
 }

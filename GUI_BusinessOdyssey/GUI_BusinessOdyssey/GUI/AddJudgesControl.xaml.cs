@@ -39,7 +39,7 @@ namespace GUI_BusinessOdyssey.GUI
 
         private void addJudgesTeamGroup_Click(object sender, RoutedEventArgs e)
         {
-            office.postObject(office.createJudgesGroup());
+            office.postJ(office.createJudgesGroup());
         }
     }
 }

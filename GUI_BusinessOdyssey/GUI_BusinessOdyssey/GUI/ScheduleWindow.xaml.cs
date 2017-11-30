@@ -1,5 +1,4 @@
-﻿using GUI_BusinessOdyssey.Management;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GUI_BusinessOdyssey.GUI
 {
     /// <summary>
-    /// Interaction logic for ViewAllTeamsController.xaml
+    /// Interaction logic for ScheduleWindow.xaml
     /// </summary>
-    public partial class ViewAllTeamsController : UserControl
+    public partial class ScheduleWindow : Window
     {
-        Office office = new Office();
-        public ViewAllTeamsController()
+        public ScheduleWindow()
         {
             InitializeComponent();
-            this.DataContext = office;
-            office.groupView("sGroupName", "studentId");
-            office.judgeGroupView("jGroupName", "judgeId");
         }
     }
 }

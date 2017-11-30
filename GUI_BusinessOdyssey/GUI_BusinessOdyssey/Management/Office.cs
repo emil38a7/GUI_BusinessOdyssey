@@ -15,13 +15,14 @@ namespace GUI_BusinessOdyssey.Management
 {
     class Office
     {
-        string studentController = "http://localhost:52890//api/Students";
-        string studentGroupController = "http://localhost:52890//api/StudentGroups";
-        string judgeController = "http://localhost:52890//api/Judges";
-        string judgeGroupController = "http://localhost:52890//api/JudgesGroups";
+        Cypher cypher = new Cypher();
+        string studentController = "http://localhost:63600//api/Students";
+        string studentGroupController = "http://localhost:63600//api/StudentGroups";
+        string judgeController = "http://localhost:63600//api/Judges";
+        string judgeGroupController = "http://localhost:63600//api/JudgesGroups";
 
         string studentID = "studentId";
-        string studentGroupID = "sGroupId";
+        string studentGroupID = "sGroupName";
         string judgeID = "judgeId";
         string judgeGroupID = "jGroupName";
         string judgeGroupKey = "jGroupKey";
@@ -36,20 +37,27 @@ namespace GUI_BusinessOdyssey.Management
         List<string> sGroupNameList;
         List<string> jGroupNameList;
 
-        List<Student> tempStudentList;
+        // List<Student> tempStudentList;
 
-        ObservableCollection<StudentGroup> sGroupList;
-        public ObservableCollection<StudentGroup> SGroup
+        ObservableCollection<Schedule> scheduleList;
+        public ObservableCollection<Schedule> ScheduleList
         {
-            get { return sGroupList; }
-            set { sGroupList = value; }
+            get { return scheduleList; }
+            set { scheduleList = value; }
         }
 
-        ObservableCollection<Student> student;
-        public ObservableCollection<Student> Student
+        ObservableCollection<StudentGroup> displayStudents;
+        public ObservableCollection<StudentGroup> DisplayStudents
         {
-            get { return student; }
-            set { student = value; }
+            get { return displayStudents; }
+            set { displayStudents = value; }
+        }
+
+        ObservableCollection<JudgesGroup> displayJudgdes;
+        public ObservableCollection<JudgesGroup> DisplayJudges
+        {
+            get { return displayJudgdes; }
+            set { displayJudgdes = value; }
         }
 
         string propertyName = "";
@@ -71,7 +79,7 @@ namespace GUI_BusinessOdyssey.Management
 
         public Office()
         {
-            tempStudentList = new List<Student>();
+            //tempStudentList = new List<Student>();
         }
 
         public Student createStudent()
@@ -79,7 +87,7 @@ namespace GUI_BusinessOdyssey.Management
             Student student = new Student
             {
                 StudentName = studentName,
-                StudentSchool = studentSchool
+                StudentSchool = studentSchool,
             };
             StudentList.Add(student);
             return student;
@@ -89,19 +97,19 @@ namespace GUI_BusinessOdyssey.Management
         {
             sGroupNameList = getKeyList(studentGroupID);
 
-            StudentGroup sg = new StudentGroup();
-            sg.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
-            sg.TrackId = track+1;
+            StudentGroup sGroup = new StudentGroup();
+            sGroup.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
+            sGroup.TrackId = track + 1;
 
-            Console.WriteLine(sg.TrackId);
+            Console.WriteLine(sGroup.TrackId);
 
-            foreach(Student s in StudentList)
+            foreach (Student s in StudentList)
             {
-                s.SGroupName = sg.SGroupName;
-                sg.Student.Add(s);
+                s.SGroupName = sGroup.SGroupName;
+                sGroup.Student.Add(s);
             }
-            return sg;
-        }  
+            return sGroup;
+        }
 
         public Judge createJudge()
         {
@@ -115,15 +123,20 @@ namespace GUI_BusinessOdyssey.Management
 
         public JudgesGroup createJudgesGroup()
         {
+            Console.WriteLine(cypher.Encrypt("gzjo38b7wr"));
             jGroupNameList = getKeyList(judgeGroupID);
             JudgesGroup jGroup = new JudgesGroup
             {
-                JGroupName = generateJudgeTeamName(jGroupNameList)
+                JGroupName = cypher.Encrypt(generateJudgeTeamName(jGroupNameList)),
+                JGroupKey = generateKey(jGroupNameList)
             };
             foreach (Judge j in JudgeList)
             {
                 j.JGroupName = jGroup.JGroupName;
+                jGroup.Judge.Add(j);
             }
+            Console.WriteLine(jGroup.JGroupKey);
+
             return jGroup;
         }
 
@@ -132,7 +145,7 @@ namespace GUI_BusinessOdyssey.Management
             char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
             return charList[list.Count].ToString();
         }
- 
+
         public string generateMagicKey()
         {
             string key = "abcdefghijklmnopqrstvuwxyz0123456789";
@@ -146,56 +159,162 @@ namespace GUI_BusinessOdyssey.Management
             return new string(chars);
         }
 
-        public void postJson(Object obj)
+        public void groupView(string groups, string members)
         {
-            string message = "http://localhost:49820/api/JudgesGroups";
-            var json = JsonConvert.SerializeObject(obj);
-            HttpWebRequest request = HttpWebRequest.Create(message) as HttpWebRequest;
-            if (!string.IsNullOrEmpty(json))
+            DisplayStudents = new ObservableCollection<StudentGroup>();
+            JArray jArray = getEntity(groups);
+            foreach (JObject sg in jArray)
             {
-                request.ContentType = "application/json";
-                request.Method = "POST";
+                DisplayStudents.Add(sg.ToObject<StudentGroup>());
+            }
 
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            List<Student> sList = new List<Student>();
+            JArray jArrayS = getEntity("studentId");
+            foreach (JObject sg in jArrayS)
+            {
+                sList.Add(sg.ToObject<Student>());
+            }
+
+            foreach (StudentGroup sg in DisplayStudents)
+            {
+                foreach (Student s in sList)
                 {
+                    if (sg.SGroupName == s.SGroupName)
+                    {
+                        sg.Student.Add(s);
+                    }
+                }
+            }
+        }
+
+        public void judgeGroupView(string groups, string members)
+        {
+            DisplayJudges = new ObservableCollection<JudgesGroup>();
+            JArray jArray = getEntity(groups);
+            foreach (JObject sg in jArray)
+            {
+                DisplayJudges.Add(sg.ToObject<JudgesGroup>());
+            }
+
+            List<Judge> memberList = new List<Judge>();
+            JArray jArrayS = getEntity(members);
+            foreach (JObject sg in jArrayS)
+            {
+                memberList.Add(sg.ToObject<Judge>());
+            }
+
+            foreach (JudgesGroup jg in DisplayJudges)
+            {
+                foreach (Judge j in memberList)
+                {
+                    if (jg.JGroupName == j.JGroupName)
+                    {
+                        jg.Judge.Add(j);
+                    }
+                }
+            }
+        }
+
+        public ObservableCollection<Schedule> createTimeSchedule()
+        {
+            scheduleList = new ObservableCollection<Schedule>();
+
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 0 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 10, 00), ScheduleId = 1 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 20, 00), ScheduleId = 2 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 30, 00), ScheduleId = 3 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 40, 00), ScheduleId = 4 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 50, 00), ScheduleId = 5 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 00, 00), ScheduleId = 6 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 7 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 10, 00), ScheduleId = 8 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 20, 00), ScheduleId = 9 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 30, 00), ScheduleId = 10 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 40, 00), ScheduleId = 11 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 50, 00), ScheduleId = 12 });
+                scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(12, 00, 00), ScheduleId = 13 });
+
+            JArray jjArray = getEntity("jGroupName");
+            List<JudgesGroup> jGroups = new List<JudgesGroup>();
+
+            foreach (JObject judgeGroup in jjArray)
+            {
+                jGroups.Add(judgeGroup.ToObject<JudgesGroup>());
+            }
+
+            JArray sjArray = getEntity("sGroupName");
+            List<StudentGroup> sGroups = new List<StudentGroup>();
+
+            foreach (JObject studentGroup in sjArray)
+            {
+                sGroups.Add(studentGroup.ToObject<StudentGroup>());
+            }
+
+           //List< = new ObservableCollection<ScheduleMaster>();
+
+            int scheduleCounter = 0;
+            int judgeCounter = 0;
+            int groupsPerJudgeTeam = sGroups.Count/jGroups.Count+1;
+
+
+
+            for (int i = 0; i<sGroups.Count; i++)
+            {
+                ScheduleList[scheduleCounter].ScheduleMaster.Add(new ScheduleMaster()
+                {
+                    ScheduleId = scheduleList[scheduleCounter].ScheduleId,
+                    SGroupName = sGroups[i].SGroupName,
+                    JGroupName = jGroups[judgeCounter].JGroupName,                    
+                });
+                scheduleCounter++;
+                //judgeCounter++;
+
+                if(scheduleCounter == groupsPerJudgeTeam)
+                {
+                    scheduleCounter = 0;
+                    judgeCounter++;
+                }
+            }
+            return ScheduleList;
+        }
+
+        public void postJ(Object obj)
+        {
+            setAccessPath(obj);
+            try
+            {
+                string webAddr = accessPath;
+
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Method = "POST";
+                httpWebRequest.ProtocolVersion = HttpVersion.Version10;
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    var json = JsonConvert.SerializeObject(obj);
+
                     streamWriter.Write(json);
                     streamWriter.Flush();
-                    streamWriter.Close();
                 }
-            }
-            Console.WriteLine("Jason is :" + json);
-
-            using (HttpWebResponse webresponse = request.GetResponse() as HttpWebResponse)
-            {
-                using (StreamReader reader = new StreamReader(webresponse.GetResponseStream()))
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
-                    string response = reader.ReadToEnd();
-                    Console.WriteLine(response);
+                    var responseText = streamReader.ReadToEnd();
+                    Console.WriteLine("Server response: " + responseText);
+
+                    //Now you have your response.
+                    //or false depending on information in the response     
                 }
             }
-            Console.ReadLine();
-        }
-
-        public void groupView(string entityName)
-        {
-            sGroupList = new ObservableCollection<StudentGroup>();
-            student = new ObservableCollection<Student>(); 
-            JArray jArray = getEntity(entityName);
-            foreach(JObject sg in jArray)
+            catch (WebException ex)
             {
-                SGroup.Add(sg.ToObject<StudentGroup>());
+                Console.WriteLine(ex.Message);
             }
         }
 
-        public void createTimeSchedule()
+        public void setAccessPath(object obj)
         {
-            Schedule schedule = new Schedule();
-        }
-
-        public void postObject(object obj)
-        {
-           // Console.WriteLine(obj.GetType());
-
             switch (obj.GetType().ToString())
             {
                 case "GUI_BusinessOdyssey.Entities.Student":
@@ -211,6 +330,11 @@ namespace GUI_BusinessOdyssey.Management
                     accessPath = judgeGroupController;
                     break;
             }
+        }
+
+        public void postObject(object obj)
+        {
+            setAccessPath(obj);
             try
             {
                 using (var client = new WebClient())
@@ -223,18 +347,18 @@ namespace GUI_BusinessOdyssey.Management
                     Console.WriteLine("Send to DB" + dataString);
 
                     var returnval = client.UploadString(uri, "POST", dataString);
-                    client.Dispose();
+                    //client.Dispose();
 
                     //var response = client.DownloadData(studentGroupController);
                 }
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.InnerException.Message);
             }
         }
 
-        public JArray getEntity(string entityName)
+        public void setAccessPathEntity(string entityName)
         {
             switch (entityName)
             {
@@ -246,11 +370,11 @@ namespace GUI_BusinessOdyssey.Management
                     propertyName = studentGroupID;
                     accessPath = studentGroupController;
                     break;
-                case "SGroupName":
+                case "sGroupName":
                     propertyName = studentGroupName;
                     accessPath = studentGroupController;
                     break;
-                case "judge":
+                case "judgeId":
                     propertyName = judgeID;
                     accessPath = judgeController;
                     break;
@@ -261,17 +385,22 @@ namespace GUI_BusinessOdyssey.Management
                 case "judgeKey":
                     propertyName = judgeGroupKey;
                     accessPath = judgeGroupController;
-                    break;                     
+                    break;
             }
-
+        }
+        
+        public JArray getEntity(string entityName)
+        {
+            setAccessPathEntity(entityName);
+            
             WebClient client = new WebClient();
             var response = client.DownloadString(accessPath);
             string resp = JsonConvert.ToString(response);
 
             dynamic studentGroups = JsonConvert.DeserializeObject<dynamic>(resp);
-            //Console.WriteLine("***" + studentGroups.ToString());
 
             JArray jArray = JArray.Parse(studentGroups);
+            
             return jArray;
         }
 
@@ -294,7 +423,7 @@ namespace GUI_BusinessOdyssey.Management
         }
 
         public List<string> getKeyList(string entityName)
-        {          
+        {
             JArray jArray = getEntity(entityName);
             List<string> keyList = new List<string>();
             foreach (JObject jObject in jArray)
@@ -310,13 +439,14 @@ namespace GUI_BusinessOdyssey.Management
             return keyList;
         }
 
-        public string verifyStudentGroupName(List <string> groupNames, string groupName)
+        public string verifyStudentGroupName(List<string> groupNames, string groupName)
         {
             if (groupNames.Count == 0 || !groupNames.Contains(groupName))
             {
                 return groupName;
             }
-            else {
+            else
+            {
                 MessageBox.Show("You must enter uniqe group name");
                 return null;
             };
@@ -324,7 +454,7 @@ namespace GUI_BusinessOdyssey.Management
 
         public char generateJudgeTeamName(int id)
         {
-            char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P','Q', 'R', 'S', 'T'};
+            char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
             return charList[id - 1];
         }
 
@@ -340,7 +470,6 @@ namespace GUI_BusinessOdyssey.Management
 
         public int generateID(List<int> idList)
         {
-            //List<int> idList = getIDsList(entityName);
             int id = 0;
             if (idList.Count != 0)
             {
