@@ -8,52 +8,53 @@
              d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
             <RowDefinition Height="2*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.ColumnSpan="5" Content="Group Registration" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="20" ></Label>
-        <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a student to group" VerticalAlignment="Center"></Label>
+        <Label Grid.ColumnSpan="6" Content="Group Registration"  VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="25" Grid.RowSpan="2" />
+        <Label Grid.ColumnSpan="3" Grid.Row="1" Content="--Add a student to group--" VerticalAlignment="Center"></Label>
         <Label Grid.Row="2" Content="Name:"></Label>
         <Label Grid.Row="3" Content="School:"></Label>
-        <Label Grid.Row="4"></Label>
-        <TextBox x:Name="studentNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Background="AntiqueWhite" Text="{Binding studentName}"></TextBox>
-        <TextBox x:Name="studentSchoolBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Background="AntiqueWhite" Text="{Binding studentSchool}"></TextBox>
-        <Label Content="Group" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-        <ListView Grid.Column="3" Margin="10" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding StudentList}">
+        <TextBox x:Name="studentNameBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Text="{Binding studentName}"></TextBox>
+        <TextBox x:Name="studentSchoolBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Text="{Binding studentSchool}"></TextBox>
+        <Label Content="Group" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="3"></Label>
+        <ListView Grid.Column="4" Margin="5" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding StudentList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="25" DisplayMemberBinding="{Binding StudentID}" />
-                    <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding StudentName}" />
-                    <GridViewColumn Header="School" Width="100" DisplayMemberBinding="{Binding StudentSchool}" />
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding StudentID}" />
+                    <GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding StudentName}" />
+                    <GridViewColumn Header="School" Width="250" DisplayMemberBinding="{Binding StudentSchool}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="addStudentButton" Content="add student" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="4" Click="addStudentButton_Click"></Button>
-        <Button Name="addStudentGroup" Content="Create group" Grid.ColumnSpan="2" Margin="5" Grid.Column="3" FontSize="15" Grid.Row="7" Click="addStudentGroup_Click"></Button>
-        
-            <Label Content="Category" Grid.Row="5" Grid.Column="3" Margin="5" ></Label>
-        <ComboBox Name="categoryNameComboBox" Grid.Row="5" Grid.Column="4" Margin="10" SelectedIndex="{Binding track}" >
+        <Button Name="addStudentButton" Content="Add student" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="7" Click="addStudentButton_Click"></Button>
+        <Button Name="addStudentGroup" Content="Create group" Grid.ColumnSpan="3" Margin="5" Grid.Column="4" FontSize="15" Grid.Row="7" Click="addStudentGroup_Click"></Button>
+
+        <Label Content="Category:" Grid.Row="5" Grid.Column="4" Margin="5" ></Label>
+       
+        <ComboBox Name="categoryNameComboBox"  Grid.Row="5" VerticalAlignment="Center" Grid.Column="5" Margin="10" Background="White" SelectedIndex="{Binding track}" SelectionChanged="categoryNameComboBox_SelectionChanged" Grid.ColumnSpan="2" >
             <ComboBoxItem Content="Trade and Skills" ></ComboBoxItem>
             <ComboBoxItem Content="Society and Globalization"></ComboBoxItem>
             <ComboBoxItem Content="Business and Service"></ComboBoxItem>
             <ComboBoxItem Content="Science and Technology"></ComboBoxItem>
         </ComboBox>
-        <Label Content="Group Name" Grid.Column="3" Grid.Row="6"></Label>
-        <TextBox Name="groupNameTextBox" Margin="5" Grid.Column="4" Grid.Row="6" Text="{Binding groupName}" ></TextBox>
-        <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="4" Grid.Row="1"></Label>
+        <Label Content="Group Name:" Grid.Column="4" Grid.Row="6"></Label>
+        <TextBox Name="groupNameTextBox" Margin="5" Grid.Column="5" Grid.Row="6" Text="{Binding groupName}" Grid.ColumnSpan="2" ></TextBox>
+        <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2"></Label>
 
     </Grid>
 </UserControl>

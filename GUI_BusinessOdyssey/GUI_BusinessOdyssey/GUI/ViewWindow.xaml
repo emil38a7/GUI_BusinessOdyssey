@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GUI_BusinessOdyssey.GUI"
         xmlns:controls="clr-namespace:GUI_BusinessOdyssey.GUI"
         mc:Ignorable="d"
-        Title="ViewWindow" Height="300" Width="600"
+        Title="ViewWindow" Height="300" Width="600" WindowState="Maximized"
         Background="LightSkyBlue">
     <Grid>
         <controls:ViewAllTeamsController></controls:ViewAllTeamsController>

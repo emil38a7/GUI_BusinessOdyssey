@@ -19,30 +19,30 @@
         <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="3*" />
+        <ColumnDefinition Width="1*" />
         <ColumnDefinition Width="2*" />
-        <ColumnDefinition Width="4*" />
-        <ColumnDefinition Width="4*" />
-        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="5*" />
+        <ColumnDefinition Width="5*" />
     </Grid.ColumnDefinitions>
-    <Label Grid.ColumnSpan="5" Content="Judges Registration" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontSize="20" ></Label>
-    <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Add a judge to team" VerticalAlignment="Center"></Label>
-    <Label Grid.Row="2" Content="Name:"></Label>
-    <Label Grid.Row="4"></Label>
-    <TextBox Name="judgeNameBox" Text="{Binding judgeName}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
-    <Label Content="Judges Team" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
-        <ListView Grid.Column="3" Background="AntiqueWhite" Margin="5" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding JudgeList}">
+    <Label Grid.ColumnSpan="6" Content="Judges Registration" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="25" ></Label>
+    <Label Grid.ColumnSpan="3" Grid.Row="1" Content="--Add a judge to team--" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="2" Content="Name:"></Label>
+        <TextBox Name="judgeNameBox" Text="{Binding judgeName}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" ></TextBox>
+    <Label Content="Judges Team" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
+        <ListView Grid.Column="4" Margin="5" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding JudgeList}">
         <ListView.View>
             <GridView>
-                <GridViewColumn Header="No" Width="20" DisplayMemberBinding="{Binding JudgeId}" />
-                <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding JudgeName}" />
+                <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding JudgeId}" />
+                <GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding JudgeName}" />
             </GridView>
         </ListView.View>
     </ListView>
-    <Button Name="addJudgeButton" Content="Add judge" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="4" Click="addJudgeButton_Click"></Button>
-    <Button Name="addJudgesTeamGroup" Content="Create team" Grid.ColumnSpan="2" Margin="5" Grid.Column="3" FontSize="15" Grid.Row="7" Click="addJudgesTeamGroup_Click"></Button>
+    <Button Name="addJudgeButton" Content="Add judge" Grid.ColumnSpan="2" Margin="5" Grid.Column="1" FontSize="15" Grid.Row="7" Click="addJudgeButton_Click"></Button>
+    <Button Name="addJudgesTeamGroup" Content="Create team" Grid.ColumnSpan="2" Margin="5" Grid.Column="4" FontSize="15" Grid.Row="7" Click="addJudgesTeamGroup_Click"></Button>
     <Label x:Name="judgeTeamName" Grid.Column="4" Grid.Row="1"></Label>
-        <Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border>
-        <Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border>
+        <!--Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></-->
+        <!--Border Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Grid.ColumnSpan="3" BorderThickness="4" BorderBrush="AntiqueWhite" ></Border-->
     </Grid>
 </UserControl>
