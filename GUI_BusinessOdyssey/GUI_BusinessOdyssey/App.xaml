@@ -7,17 +7,18 @@
         <Style x:Name="buttonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10"></Setter>
             <Setter Property="Background" Value="CornflowerBlue"></Setter>
-            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         </Style>
         <Style x:Name="labelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="15" ></Setter>
+            <Setter Property="FontSize" Value="18" ></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
         <Style x:Name="textBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="5"></Setter>
-            <Setter Property="Background" Value="AntiqueWhite"></Setter>
-            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Margin" Value="15"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
         </Style>
         <Style x:Name="usercontrolStyle" TargetType="UserControl">
             <Setter Property="Background" Value="LightSkyBlue"></Setter>

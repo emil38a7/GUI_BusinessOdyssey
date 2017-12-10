@@ -44,6 +44,11 @@ namespace GUI_BusinessOdyssey.GUI
         {
             office.postObject(office.createSGroup());
             office.postJ(office.createSGroup());
-        }       
+        }
+
+        private void categoryNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
