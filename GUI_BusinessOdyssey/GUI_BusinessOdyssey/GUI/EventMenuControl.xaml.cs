@@ -47,6 +47,11 @@ namespace GUI_BusinessOdyssey.GUI
                 ViewWindow vw = new ViewWindow();
                 vw.Show();
             }
+            else if((string)button.Content == "Find winner")
+            {
+                WinnerWindow ww = new WinnerWindow();
+                ww.Show();
+            }
 
             else
             {

@@ -73,6 +73,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Find Winnercontroller.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\GenerateSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -90,6 +94,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\ViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\WinnerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +131,9 @@
     <Compile Include="GUI\EventMenuWindow.xaml.cs">
       <DependentUpon>EventMenuWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Find Winnercontroller.xaml.cs">
+      <DependentUpon>Find Winnercontroller.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\GenerateSchedule.xaml.cs">
       <DependentUpon>GenerateSchedule.xaml</DependentUpon>
     </Compile>
@@ -137,6 +148,9 @@
     </Compile>
     <Compile Include="GUI\ViewWindow.xaml.cs">
       <DependentUpon>ViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\WinnerWindow.xaml.cs">
+      <DependentUpon>WinnerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

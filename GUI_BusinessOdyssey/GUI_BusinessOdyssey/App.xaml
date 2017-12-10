@@ -22,5 +22,8 @@
         <Style x:Name="usercontrolStyle" TargetType="UserControl">
             <Setter Property="Background" Value="LightSkyBlue"></Setter>
         </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

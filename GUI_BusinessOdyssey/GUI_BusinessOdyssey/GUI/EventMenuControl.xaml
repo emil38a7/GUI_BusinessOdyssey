@@ -17,6 +17,8 @@
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+
 
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
@@ -50,7 +52,15 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="View All Teams" Grid.Row="4" FontSize="15" Click="Button_Click" Height="70" Margin="10,10,10,0" VerticalAlignment="Top">
+        <Button Content="View All Teams" Grid.Row="4" FontSize="15" Click="Button_Click" >
+            <Button.Background>
+                <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Aqua" Offset="0"/>
+                    <GradientStop Color="Violet" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Find winner" Grid.Row="5" FontSize="15" Click="Button_Click" >
             <Button.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Aqua" Offset="0"/>

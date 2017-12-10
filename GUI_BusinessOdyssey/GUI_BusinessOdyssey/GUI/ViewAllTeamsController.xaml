@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_BusinessOdyssey.GUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
@@ -28,7 +28,7 @@
                                 <DataTemplate>
                                     <WrapPanel>
                                         <TextBlock Text="Student name: " />
-                                        <TextBlock Width="75" Text="{Binding StudentName}" FontWeight="Bold" />
+                                        <TextBlock Width="150" Text="{Binding StudentName}" FontWeight="Bold" />
                                     </WrapPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -48,7 +48,7 @@
                                 <DataTemplate>
                                     <WrapPanel>
                                         <TextBlock Text="Judge: " />
-                                        <TextBlock Width="75" Text="{Binding JudgeName}" FontWeight="Bold" />
+                                        <TextBlock Width="150" Text="{Binding JudgeName}" FontWeight="Bold" />
                                     </WrapPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
