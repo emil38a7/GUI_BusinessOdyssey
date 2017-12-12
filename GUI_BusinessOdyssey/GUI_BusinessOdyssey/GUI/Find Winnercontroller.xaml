@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <Label Content="The semifinal winners"></Label>
         <Label Content="The final winner" Grid.Row="0" Grid.Column="1"></Label>
-        <ListView Grid.Row="1" ItemsSource="{Binding TrackWinners}">
+        <ListView Grid.Row="1" ItemsSource="{Binding TrackWinners}" Margin="10">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -40,7 +40,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Margin="10" Name="lvUsers" ItemsSource="{Binding TrackWinners}"  Grid.Row="1" Grid.Column="1" >
+        <ListView Margin="10" Name="lvUsers" ItemsSource="{Binding FinalWinners}"  Grid.Row="1" Grid.Column="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Track" Width="120" DisplayMemberBinding="{Binding TrackId}" />

@@ -646,7 +646,6 @@ namespace GUI_BusinessOdyssey.Management
                         {
                             Console.WriteLine("The final winner is: " + a.SGroupName + " " + "Points " + a.Points);
                         }*/
-
             return null;
         }
 
@@ -663,7 +662,6 @@ namespace GUI_BusinessOdyssey.Management
 
         public void addTrackWinners(List<ScoreSheetReg> objectList, ObservableCollection<List<ScoreSheetReg>> winnersList)
         {
-
             List<ScoreSheetReg> templist = new List<ScoreSheetReg>();
             var maxPoints = objectList.Max(obj => obj.Points);
             var maxObj = objectList.Where(obj => obj.Points == maxPoints);
