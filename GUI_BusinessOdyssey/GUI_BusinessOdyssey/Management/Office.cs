@@ -16,10 +16,10 @@ namespace GUI_BusinessOdyssey.Management
     class Office
     {
         Cypher cypher = new Cypher();
-        string studentController = "http://localhost:63600//api/Students";
-        string studentGroupController = "http://localhost:63600//api/StudentGroups";
-        string judgeController = "http://localhost:63600//api/Judges";
-        string judgeGroupController = "http://localhost:63600//api/JudgesGroups";
+        string studentController = "http://localhost:52890//api/Students";
+        string studentGroupController = "http://localhost:52890//api/StudentGroups";
+        string judgeController = "http://localhost:52890//api/Judges";
+        string judgeGroupController = "http://localhost:52890//api/JudgesGroups";
 
         string studentID = "studentId";
         string studentGroupID = "sGroupName";

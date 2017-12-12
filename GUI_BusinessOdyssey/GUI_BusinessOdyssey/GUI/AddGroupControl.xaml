@@ -54,7 +54,7 @@
         </ComboBox>
         <Label Content="Group Name:" Grid.Column="4" Grid.Row="6"></Label>
         <TextBox Name="groupNameTextBox" Margin="5" Grid.Column="5" Grid.Row="6" Text="{Binding groupName}" Grid.ColumnSpan="2" ></TextBox>
-        <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2"></Label>
+        <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="2"></Label>
 
     </Grid>
 </UserControl>
