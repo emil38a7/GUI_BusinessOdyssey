@@ -30,39 +30,62 @@ namespace GUI_BusinessOdyssey.GUI
             Button button = sender as Button;
             if ((string)button.Content == "Create Student Team")
             {
-                AddJudgePanel.Visibility = Visibility.Hidden;
-                // AddScoreSheet.Visibility = Visibility.Hidden;
-
                 AddGroupPanel.Visibility = Visibility.Visible;
+                AddJudgePanel.Visibility = Visibility.Hidden;
+                ViewAllTeamsPanel.Visibility = Visibility.Hidden;
+                FindWinnersPanel.Visibility = Visibility.Hidden;
+                CreateSchedulePanel.Visibility = Visibility.Hidden;
+
+                // AddScoreSheet.Visibility = Visibility.Hidden;
             }
             else if ((string)button.Content == "Create Judge team")
             {
-                AddGroupPanel.Visibility = Visibility.Hidden;
-                //AddScoreSheet.Visibility = Visibility.Hidden;
-
                 AddJudgePanel.Visibility = Visibility.Visible;
+                AddGroupPanel.Visibility = Visibility.Hidden;
+                ViewAllTeamsPanel.Visibility = Visibility.Hidden;
+                FindWinnersPanel.Visibility = Visibility.Hidden;
+                CreateSchedulePanel.Visibility = Visibility.Hidden;
+
+                //AddScoreSheet.Visibility = Visibility.Hidden;
             }
             else if ((string)button.Content == "View All Teams")
             {
-                ViewWindow vw = new ViewWindow();
-                vw.Show();
+                ViewAllTeamsPanel.Visibility = Visibility.Visible;
+                AddGroupPanel.Visibility = Visibility.Hidden;
+                AddJudgePanel.Visibility = Visibility.Hidden;
+                FindWinnersPanel.Visibility = Visibility.Hidden;
+                CreateSchedulePanel.Visibility = Visibility.Hidden;
+
             }
             else if((string)button.Content == "Find winner")
             {
-                WinnerWindow ww = new WinnerWindow();
-                ww.Show();
+                FindWinnersPanel.Visibility = Visibility.Visible;
+                ViewAllTeamsPanel.Visibility = Visibility.Hidden;
+                AddGroupPanel.Visibility = Visibility.Hidden;
+                AddJudgePanel.Visibility = Visibility.Hidden;
+                CreateSchedulePanel.Visibility = Visibility.Hidden;
+
+                //WinnerWindow ww = new WinnerWindow();
+                //ww.Show();
+            }
+            else if ((string)button.Content == "Create Time Schedule")
+            {
+                CreateSchedulePanel.Visibility = Visibility.Visible;
+                ViewAllTeamsPanel.Visibility = Visibility.Hidden;
+                AddGroupPanel.Visibility = Visibility.Hidden;
+                AddJudgePanel.Visibility = Visibility.Hidden;
+                FindWinnersPanel.Visibility = Visibility.Hidden;
+
             }
 
-            else
-            {
-                AddJudgePanel.Visibility = Visibility.Hidden;
-                AddGroupPanel.Visibility = Visibility.Hidden;
+           
+                
 
-                ScheduleWindow sw = new ScheduleWindow();
-                sw.Show();
+               // ScheduleWindow sw = new ScheduleWindow();
+                //sw.Show();
 
                 ////AddScoreSheet.Visibility = Visibility.Visible;
-            }
+            
         }
     }
 }

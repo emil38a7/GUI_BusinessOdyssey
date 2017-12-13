@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_BusinessOdyssey.GUI"
-        xmlns:controls="clr-namespace:GUI_BusinessOdyssey.GUI"
+        xmlns:controler="clr-namespace:GUI_BusinessOdyssey.GUI"
+        
         mc:Ignorable="d"
         Title="WinnerWindow" Height="400" Width="600"
         Background="LightSkyBlue">
     <Grid>
-        <controls:Find_Winnercontroller></controls:Find_Winnercontroller>
+        <controler:Find_Winnercontroller></controler:Find_Winnercontroller>
     </Grid>
 </Window>
