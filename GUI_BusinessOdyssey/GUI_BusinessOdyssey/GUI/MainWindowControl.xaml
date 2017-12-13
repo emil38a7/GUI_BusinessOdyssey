@@ -26,16 +26,14 @@
         <Label Content="Business Odyssey" Grid.Column="1" Grid.ColumnSpan="5" FontSize="100" FontWeight="Heavy" HorizontalContentAlignment="Center" VerticalAlignment="Top"></Label>
         <Label Content="- Yearly entrepreneurship competition -" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" FontSize="20" FontStyle="Italic"></Label>
         <Label HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold" >
-            <fa:ImageAwesome  Icon="Spinner" Spin="True" Height="400" Width="400" SpinDuration="2" />
             <Label.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="Aqua" Offset="0"/>
-                    <GradientStop Color="Violet" Offset="1"/>
+                    <GradientStop Color="Violet" Offset="0"/>
+                    <GradientStop Color="Aqua" Offset="1"/>
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
         <Label HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" FontSize="20" FontWeight="DemiBold">
-            <fa:ImageAwesome Icon="Spinner" Spin="True" Height="400" Width="400" SpinDuration="2" />
             <Label.Background>
                 <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Violet" Offset="0"/>
