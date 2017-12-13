@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="GUI_BusinessOdyssey.GUI.Find_Winnercontroller"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI_BusinessOdyssey.GUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+           
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Content="The semifinal winners"></Label>
+        <Label Content="The final winner" Grid.Row="0" Grid.Column="1"></Label>
+        <ListView Grid.Row="1" ItemsSource="{Binding TrackWinners}" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="Track" Width="75"></TextBlock>
+                        <ListView ItemsSource="{Binding}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding TrackId}" Width="75" FontWeight="Bold" />
+                                        <TextBlock Text="Group: " Width="75" />
+                                        <TextBlock Text="{Binding SGroupName}" Width="75" FontWeight="Bold" />
+                                        <TextBlock Text="Points: " Width="75" />
+                                        <TextBlock Text="{Binding Points}" Width="75" FontWeight="Bold" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Margin="10" Name="lvUsers" ItemsSource="{Binding FinalWinners}"  Grid.Row="1" Grid.Column="1" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Track" Width="120" DisplayMemberBinding="{Binding TrackId}" />
+                    <GridViewColumn Header="Group" Width="50" DisplayMemberBinding="{Binding SGroupName}" />
+                    <GridViewColumn Header="Points" Width="150" DisplayMemberBinding="{Binding Points}">
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

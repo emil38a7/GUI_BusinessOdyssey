@@ -42,7 +42,7 @@ namespace GUI_BusinessOdyssey.GUI
 
         private void addStudentGroup_Click(object sender, RoutedEventArgs e)
         {
-            //office.postObject(office.createSGroup());
+            office.postObject(office.createSGroup());
             office.postJ(office.createSGroup());
         }
 

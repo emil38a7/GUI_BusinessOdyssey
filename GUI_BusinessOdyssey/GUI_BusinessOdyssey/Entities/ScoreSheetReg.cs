@@ -9,12 +9,12 @@ namespace GUI_BusinessOdyssey.Entities
     class ScoreSheetReg
     {
         public int ScoreSheetRegId { get; set; }
-        public int SGroupId { get; set; }
-        public int? JGroupId { get; set; }
+        public string SGroupName { get; set; }
+        public string JGroupName { get; set; }
         public double? Points { get; set; }
         public int TrackId { get; set; }
 
-        public StudentGroup SGroup { get; set; }
-        public Track Track { get; set; }
+        public JudgesGroup JGroupNameNavigation { get; set; }
+        public StudentGroup SGroupNameNavigation { get; set; }
     }
 }
