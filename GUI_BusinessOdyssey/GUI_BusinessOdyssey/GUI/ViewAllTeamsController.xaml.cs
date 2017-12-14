@@ -21,10 +21,12 @@ namespace GUI_BusinessOdyssey.GUI
     /// </summary>
     public partial class ViewAllTeamsController : UserControl
     {
-        Office office = new Office();
+        Office office = null;
         public ViewAllTeamsController()
         {
             InitializeComponent();
+            office = EventMenuControl.office;
+
             this.DataContext = office;
             office.groupView("sGroupName", "studentId");
             office.judgeGroupView("jGroupName", "judgeId");

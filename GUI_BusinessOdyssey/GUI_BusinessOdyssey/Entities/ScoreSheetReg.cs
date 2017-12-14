@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_BusinessOdyssey.Entities
 {
-    class ScoreSheetReg
+    public class ScoreSheetReg
     {
         public int ScoreSheetRegId { get; set; }
         public string SGroupName { get; set; }

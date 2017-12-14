@@ -7,7 +7,7 @@
         xmlns:controler="clr-namespace:GUI_BusinessOdyssey.GUI"
 
         mc:Ignorable="d"
-        Title="ScheduleWindow" Height="400" Width="600"
+        Title="ScheduleWindow" Height="700" Width="600"
         Background="LightSkyBlue">
     <Grid>
         <controler:GenerateSchedule></controler:GenerateSchedule>

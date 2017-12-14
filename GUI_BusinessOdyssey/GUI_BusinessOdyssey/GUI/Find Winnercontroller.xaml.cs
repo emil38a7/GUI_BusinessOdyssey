@@ -21,14 +21,19 @@ namespace GUI_BusinessOdyssey.GUI
     /// </summary>
     public partial class Find_Winnercontroller : UserControl
     {
-        Office of = new Office();
+        Office office = null;
 
         public Find_Winnercontroller()
         {
             InitializeComponent();
-            this.DataContext = of;
+            office = EventMenuControl.office;
+            this.DataContext = office;
+            //office.findWinner();
+        }
 
-            of.findWinner();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            office.findWinner();
         }
     }
 }

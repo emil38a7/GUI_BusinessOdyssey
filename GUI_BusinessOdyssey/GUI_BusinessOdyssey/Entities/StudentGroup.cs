@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUI_BusinessOdyssey.Entities
 {
-    class StudentGroup
+    public class StudentGroup
     {
         public string SGroupName { get; set; }
         public int TrackId { get; set; }

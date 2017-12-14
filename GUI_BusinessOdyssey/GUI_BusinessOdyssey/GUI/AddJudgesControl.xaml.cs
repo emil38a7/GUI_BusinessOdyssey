@@ -22,13 +22,13 @@ namespace GUI_BusinessOdyssey.GUI
     /// Interaction logic for AddJudgesControl.xaml
     /// </summary>
     public partial class AddJudgesControl : UserControl
-    { 
-        Office office;
+    {
+        Office office = null;
        
         public AddJudgesControl()
         {
             InitializeComponent();
-            office = new Office();
+            office = EventMenuControl.office;
             this.DataContext = office;
         }
 

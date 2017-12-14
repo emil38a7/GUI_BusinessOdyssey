@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUI_BusinessOdyssey.Entities
 {
-    class JudgesGroup
+    public class JudgesGroup
     {
         public string JGroupName { get; set; }
         public string JGroupKey { get; set; }

@@ -7,21 +7,23 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace GUI_BusinessOdyssey.Management
 {
-    class Office
+    public class Office
     {
         Cypher cypher = new Cypher();
-        string studentController = "http://localhost:52890//api/Students";
-        string studentGroupController = "http://localhost:52890//api/StudentGroups";
-        string judgeController = "http://localhost:52890//api/Judges";
-        string judgeGroupController = "http://localhost:52890//api/JudgesGroups";
-        string scheduleControler = "http://localhost:52890//api/Schedules";
-        string scoreSheetRegisterController = "http://localhost:52890//api/ScoreSheetRegs";
+        string studentController = "http://localhost:63600//api/Students";
+        string studentGroupController = "http://localhost:63600//api/StudentGroups";
+        string judgeController = "http://localhost:63600//api/Judges";
+        string judgeGroupController = "http://localhost:63600//api/JudgesGroups";
+        string scheduleControler = "http://localhost:63600//api/Schedules";
+        string scoreSheetRegisterController = "http://localhost:63600//api/ScoreSheetRegs";
+        string scheduleMasterController = "http://localhost:63600//api/ScheduleMasters";
 
         string studentID = "studentId";
         string studentGroupID = "sGroupName";
@@ -29,7 +31,8 @@ namespace GUI_BusinessOdyssey.Management
         string judgeGroupID = "jGroupName";
         string judgeGroupKey = "jGroupKey";
         string studentGroupName = "sGroupName";
-        string schedule = "schedule";
+        string scheduleObject = "schedule";
+        string scheduleMaster = "scheduleMaster";
         string scoreSheetRg = "ScoreSheetReg";
 
         public string studentName { get; set; }
@@ -97,16 +100,18 @@ namespace GUI_BusinessOdyssey.Management
             set { finalWinners = value; }
         }
 
+        ObservableCollection<Schedule> scheduleListCollection = new ObservableCollection<Schedule>();
+
+        public ObservableCollection<Schedule> ScheduleListCollection
+        {
+            get { return scheduleListCollection; }
+            set { scheduleListCollection = value; }
+        }
+
         List<ScoreSheetReg> trackFirst = new List<ScoreSheetReg>();
         List<ScoreSheetReg> trackSecond = new List<ScoreSheetReg>();
         List<ScoreSheetReg> trackThird = new List<ScoreSheetReg>();
         List<ScoreSheetReg> trackFourth = new List<ScoreSheetReg>();
-
-        public Office()
-        {
-
-            //tempStudentList = new List<Student>();
-        }
 
         public Student createStudent()
         {
@@ -121,7 +126,7 @@ namespace GUI_BusinessOdyssey.Management
 
         public StudentGroup createSGroup()
         {
-            sGroupNameList = getKeyList(studentGroupID);
+            sGroupNameList = getPrimaryKeyList(studentGroupID);
 
             StudentGroup sGroup = new StudentGroup();
             sGroup.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
@@ -150,7 +155,7 @@ namespace GUI_BusinessOdyssey.Management
         public JudgesGroup createJudgesGroup()
         {
             Console.WriteLine(cypher.Encrypt("gzjo38b7wr"));
-            jGroupNameList = getKeyList(judgeGroupID);
+            jGroupNameList = getPrimaryKeyList(judgeGroupID);
             JudgesGroup jGroup = new JudgesGroup
             {
                 JGroupName = generateJudgeTeamName(jGroupNameList),
@@ -243,79 +248,150 @@ namespace GUI_BusinessOdyssey.Management
 
         public ObservableCollection<Schedule> createTimeSchedule()
         {
-            scheduleList = new ObservableCollection<Schedule>();
-
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 1 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 10, 00), ScheduleId = 2 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 20, 00), ScheduleId = 3 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 30, 00), ScheduleId = 4 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 40, 00), ScheduleId = 5 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 50, 00), ScheduleId = 6 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 00, 00), ScheduleId = 7 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 8 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 10, 00), ScheduleId = 9 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 20, 00), ScheduleId = 10 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 30, 00), ScheduleId = 11 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 40, 00), ScheduleId = 12 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(11, 50, 00), ScheduleId = 13 });
-            scheduleList.Add(new Schedule() { ScheduleHour = new TimeSpan(12, 00, 00), ScheduleId = 14 });
-
-            JArray jjArray = getEntity("jGroupName");
-            List<JudgesGroup> jGroups = new List<JudgesGroup>();
-
-            foreach (JObject judgeGroup in jjArray)
+            if (fillOutObjects().Count == 0)
             {
-                jGroups.Add(judgeGroup.ToObject<JudgesGroup>());
-            }
-
-            JArray sjArray = getEntity("sGroupName");
-            List<StudentGroup> sGroups = new List<StudentGroup>();
-
-            foreach (JObject studentGroup in sjArray)
+                scheduleList = new ObservableCollection<Schedule>
             {
-                sGroups.Add(studentGroup.ToObject<StudentGroup>());
-            }
+                new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 1 },
+                new Schedule() { ScheduleHour = new TimeSpan(10, 10, 00), ScheduleId = 2 },
+                new Schedule() { ScheduleHour = new TimeSpan(10, 20, 00), ScheduleId = 3 },
+                new Schedule() { ScheduleHour = new TimeSpan(10, 30, 00), ScheduleId = 4 },
+                new Schedule() { ScheduleHour = new TimeSpan(10, 40, 00), ScheduleId = 5 },
+                new Schedule() { ScheduleHour = new TimeSpan(10, 50, 00), ScheduleId = 6 },
+                new Schedule() { ScheduleHour = new TimeSpan(11, 00, 00), ScheduleId = 7 },
+                new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 8 },
+                new Schedule() { ScheduleHour = new TimeSpan(11, 10, 00), ScheduleId = 9 },
+                new Schedule() { ScheduleHour = new TimeSpan(11, 20, 00), ScheduleId = 10 },
+                new Schedule() { ScheduleHour = new TimeSpan(11, 30, 00), ScheduleId = 11 },
+                new Schedule() { ScheduleHour = new TimeSpan(11, 40, 00), ScheduleId = 12 },
+                new Schedule() { ScheduleHour = new TimeSpan(11, 50, 00), ScheduleId = 13 },
+                new Schedule() { ScheduleHour = new TimeSpan(12, 00, 00), ScheduleId = 14 }
+            };
 
-            //List< = new ObservableCollection<ScheduleMaster>();
+                JArray jjArray = getEntity("jGroupName");
+                List<JudgesGroup> jGroups = new List<JudgesGroup>();
 
-            int scheduleCounter = 0;
-            int judgeCounter = 0;
-            int groupsPerJudgeTeam = roundUp(jGroups.Count, sGroups.Count);
-
-            for (int i = 0; i < sGroups.Count; i++)
-            {
-                ScheduleList[scheduleCounter].ScheduleMaster.Add(new ScheduleMaster()
+                foreach (JObject judgeGroup in jjArray)
                 {
-                    ScheduleId = scheduleList[scheduleCounter].ScheduleId,
-                    SGroupName = sGroups[i].SGroupName,
-                    JGroupName = jGroups[judgeCounter].JGroupName,
-                });
-                scheduleCounter++;
-                //judgeCounter++;
-
-                if (scheduleCounter == groupsPerJudgeTeam)
-                {
-                    scheduleCounter = 0;
-                    judgeCounter++;
+                    jGroups.Add(judgeGroup.ToObject<JudgesGroup>());
                 }
-            }
-            JArray jArray = getEntity(schedule);
 
-            foreach (Schedule sch in ScheduleList)
-            {
-                postJ(sch);
-            }
+                JArray sjArray = getEntity("sGroupName");
+                List<StudentGroup> sGroups = new List<StudentGroup>();
 
-            foreach (Schedule sch in ScheduleList)
-            {
-                var json = JsonConvert.SerializeObject(sch);
-                Console.WriteLine(json);
-            }
+                foreach (JObject studentGroup in sjArray)
+                {
+                    sGroups.Add(studentGroup.ToObject<StudentGroup>());
+                }
 
+                int scheduleCounter = 0;
+                int judgeCounter = 0;
+                int groupsPerJudgeTeam = roundUp(jGroups.Count, sGroups.Count);
+
+                for (int i = 0; i < sGroups.Count; i++)
+                {
+                    ScheduleList[scheduleCounter].ScheduleMaster.Add(new ScheduleMaster()
+                    {
+                        ScheduleId = scheduleList[scheduleCounter].ScheduleId,
+                        SGroupName = sGroups[i].SGroupName,
+                        JGroupName = jGroups[judgeCounter].JGroupName,
+                    });
+                    scheduleCounter++;
+
+                    if (scheduleCounter == groupsPerJudgeTeam)
+                    {
+                        scheduleCounter = 0;
+                        judgeCounter++;
+                    }
+                }
+
+                foreach (Schedule sch in ScheduleList)
+                {
+                    postJ(sch);
+                }
+
+                foreach (Schedule sch in ScheduleList)
+                {
+                    var json = JsonConvert.SerializeObject(sch);
+                    Console.WriteLine(json);
+                }
+                displaySchedule();
+            }
+            else displaySchedule();
             return ScheduleList;
         }
 
-        public void postJ(Object obj)
+        public List<Schedule> fillOutObjects()
+        {
+            JArray scheduleArray = getEntity(scheduleObject);
+            Console.WriteLine(scheduleArray);
+            List<Schedule> fullScheduleList = new List<Schedule>();
+            foreach (JObject schedule in scheduleArray)
+            {
+                fullScheduleList.Add(schedule.ToObject<Schedule>());
+            }
+
+            JArray scheduleMasterArray = getEntity(scheduleMaster);
+            List<ScheduleMaster> scheduleMasterList = new List<ScheduleMaster>();
+            foreach (JObject scheduleMaster in scheduleMasterArray)
+            {
+                scheduleMasterList.Add(scheduleMaster.ToObject<ScheduleMaster>());
+            }
+
+            foreach (Schedule schedule in fullScheduleList)
+            {
+                foreach (ScheduleMaster scheduleMaster in scheduleMasterList)
+                {
+                    if (schedule.ScheduleId == scheduleMaster.ScheduleId)
+                    {
+                        schedule.ScheduleMaster.Add(scheduleMaster);
+                    }
+                }
+            }
+            return fullScheduleList;
+        }
+
+        public void displaySchedule()
+        {
+            List<Schedule> sList = fillOutObjects();
+            foreach (Schedule schedule in sList)
+            {
+                ScheduleListCollection.Add(schedule);
+            }
+        }
+
+        public void deleteSchedule()
+        {
+            List<Schedule> dList = fillOutObjects();
+            foreach (Schedule schedule in dList)
+            {
+                foreach (ScheduleMaster sm in schedule.ScheduleMaster)
+                {
+                    deleteEntity("scheduleMaster", sm.ScheduleMasterId);
+                }
+                deleteEntity("schedule", schedule.ScheduleId);
+            }
+            ScheduleListCollection.Clear();
+        }
+
+        public void deleteEntity(String objType, int id)
+        {
+            setAccessPathEntity(objType);
+            using (var client = new HttpClient())
+            {
+                var response = client.DeleteAsync(accessPath + "/" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Success");
+                }
+                else
+                {
+                    Console.WriteLine("Error");
+                };
+            }
+        }
+
+        public bool postJ(Object obj)
         {
             setAccessPath(obj);
             try
@@ -331,8 +407,6 @@ namespace GUI_BusinessOdyssey.Management
                 {
                     var json = JsonConvert.SerializeObject(obj);
                     Console.WriteLine("sending to server " + json);
-                    Console.WriteLine("******************************");
-
 
                     streamWriter.Write(json);
                     streamWriter.Flush();
@@ -342,15 +416,16 @@ namespace GUI_BusinessOdyssey.Management
                 {
                     var responseText = streamReader.ReadToEnd();
                     Console.WriteLine("Server response: " + responseText);
-
-                    //Now you have your response.
-                    //or false depending on information in the response     
+                    Console.WriteLine("******************************");
+                    MessageBox.Show("Success!!!");
                 }
+                return true;
             }
             catch (WebException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex);
+                return false;
             }
         }
 
@@ -444,6 +519,10 @@ namespace GUI_BusinessOdyssey.Management
                     propertyName = judgeGroupKey;
                     accessPath = scheduleControler;
                     break;
+                case "scheduleMaster":
+                    propertyName = scheduleMaster;
+                    accessPath = scheduleMasterController;
+                    break;
                 case "ScoreSheetReg":
                     propertyName = scoreSheetRg;
                     accessPath = scoreSheetRegisterController;
@@ -480,38 +559,6 @@ namespace GUI_BusinessOdyssey.Management
             return jArray;
         }
 
-        public void post()
-        {
-            ScoreSheetReg obj = new ScoreSheetReg
-            {
-                SGroupName = "Bobby",
-                JGroupName = "A",
-                Points = 10,
-                TrackId = 1
-            };
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    Uri uri = new Uri("http://localhost:63600//api/ScoreSheetRegs");
-                    var dataString = JsonConvert.SerializeObject(obj);
-                    // Console.WriteLine(dataString);
-                    client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-
-                    Console.WriteLine("Send to DB" + dataString);
-
-                    var returnval = client.UploadString(uri, "POST", dataString);
-                    //client.Dispose();
-
-                    //var response = client.DownloadData(studentGroupController);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException.Message);
-            }
-        }
-
         public List<int> getIDsList(string entityName)
         {
             JArray jArray = getEntity(entityName);
@@ -530,7 +577,7 @@ namespace GUI_BusinessOdyssey.Management
             return idList;
         }
 
-        public List<string> getKeyList(string entityName)
+        public List<string> getPrimaryKeyList(string entityName)
         {
             JArray jArray = getEntity(entityName);
             List<string> keyList = new List<string>();
@@ -639,13 +686,6 @@ namespace GUI_BusinessOdyssey.Management
             }
 
             findFinalWinner(grandeFinale);
-            /*
-                        var maxPoints = grandeFinale.Max(obj => obj.Points);
-                        var maxObj = grandeFinale.Where(obj => obj.Points == maxPoints);
-                        foreach(var a in maxObj)
-                        {
-                            Console.WriteLine("The final winner is: " + a.SGroupName + " " + "Points " + a.Points);
-                        }*/
             return null;
         }
 

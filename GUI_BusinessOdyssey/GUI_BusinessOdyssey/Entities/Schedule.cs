@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace GUI_BusinessOdyssey.Entities
 {
-    class Schedule
+    public class Schedule
     {
         public int ScheduleId { get; set; }
         public TimeSpan ScheduleHour { get; set; }
 
-        public ObservableCollection<ScheduleMaster> ScheduleMaster { get; set; }
+        public List<ScheduleMaster> ScheduleMaster { get; set; }
 
         public Schedule()
         {
-            ScheduleMaster = new ObservableCollection<ScheduleMaster>();
+            ScheduleMaster = new List<ScheduleMaster>(); //
         }
 
     }

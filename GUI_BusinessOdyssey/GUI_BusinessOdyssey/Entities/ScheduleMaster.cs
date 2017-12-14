@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_BusinessOdyssey.Entities
 {
-    class ScheduleMaster
+    public class ScheduleMaster
     {
         public int ScheduleMasterId { get; set; }
         public string JGroupName { get; set; }

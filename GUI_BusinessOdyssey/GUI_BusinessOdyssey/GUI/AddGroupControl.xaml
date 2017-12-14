@@ -35,7 +35,6 @@
         <ListView Grid.Column="4" Margin="5" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding StudentList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding StudentID}" />
                     <GridViewColumn Header="Name" Width="350" DisplayMemberBinding="{Binding StudentName}" />
                     <GridViewColumn Header="School" Width="250" DisplayMemberBinding="{Binding StudentSchool}" />
                 </GridView>
@@ -46,7 +45,7 @@
 
         <Label Content="Category:" Grid.Row="5" Grid.Column="4" Margin="5" ></Label>
        
-        <ComboBox Name="categoryNameComboBox"  Grid.Row="5" VerticalAlignment="Center" Grid.Column="5" Margin="10" Background="White" SelectedIndex="{Binding track}" SelectionChanged="categoryNameComboBox_SelectionChanged" Grid.ColumnSpan="2" >
+        <ComboBox Name="categoryNameComboBox"  Grid.Row="5" VerticalAlignment="Center" Grid.Column="5" Margin="10" Background="White" SelectedIndex="{Binding track}" Grid.ColumnSpan="2" >
             <ComboBoxItem Content="Trade and Skills" ></ComboBoxItem>
             <ComboBoxItem Content="Society and Globalization"></ComboBoxItem>
             <ComboBoxItem Content="Business and Service"></ComboBoxItem>
@@ -55,6 +54,5 @@
         <Label Content="Group Name:" Grid.Column="4" Grid.Row="6"></Label>
         <TextBox Name="groupNameTextBox" Margin="5" Grid.Column="5" Grid.Row="6" Text="{Binding groupName}" Grid.ColumnSpan="2" ></TextBox>
         <Label Content="{Binding Path=Text, ElementName=groupNameTextBox}" Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="2"></Label>
-
     </Grid>
 </UserControl>

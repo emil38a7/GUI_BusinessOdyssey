@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_BusinessOdyssey.Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace GUI_BusinessOdyssey.GUI
     /// </summary>
     public partial class EventMenuControl : UserControl
     {
+        public static Office office = new Office();
         public EventMenuControl()
         {
             InitializeComponent();
@@ -35,8 +37,6 @@ namespace GUI_BusinessOdyssey.GUI
                 ViewAllTeamsPanel.Visibility = Visibility.Hidden;
                 FindWinnersPanel.Visibility = Visibility.Hidden;
                 CreateSchedulePanel.Visibility = Visibility.Hidden;
-
-                // AddScoreSheet.Visibility = Visibility.Hidden;
             }
             else if ((string)button.Content == "Create Judge team")
             {
@@ -45,8 +45,6 @@ namespace GUI_BusinessOdyssey.GUI
                 ViewAllTeamsPanel.Visibility = Visibility.Hidden;
                 FindWinnersPanel.Visibility = Visibility.Hidden;
                 CreateSchedulePanel.Visibility = Visibility.Hidden;
-
-                //AddScoreSheet.Visibility = Visibility.Hidden;
             }
             else if ((string)button.Content == "View All Teams")
             {
@@ -55,37 +53,23 @@ namespace GUI_BusinessOdyssey.GUI
                 AddJudgePanel.Visibility = Visibility.Hidden;
                 FindWinnersPanel.Visibility = Visibility.Hidden;
                 CreateSchedulePanel.Visibility = Visibility.Hidden;
-
             }
-            else if((string)button.Content == "Find winner")
+            else if ((string)button.Content == "Find winner")
             {
                 FindWinnersPanel.Visibility = Visibility.Visible;
                 ViewAllTeamsPanel.Visibility = Visibility.Hidden;
                 AddGroupPanel.Visibility = Visibility.Hidden;
                 AddJudgePanel.Visibility = Visibility.Hidden;
                 CreateSchedulePanel.Visibility = Visibility.Hidden;
-
-                //WinnerWindow ww = new WinnerWindow();
-                //ww.Show();
             }
-            else if ((string)button.Content == "Create Time Schedule")
+            else if ((string)button.Content == "Time Schedule")
             {
                 CreateSchedulePanel.Visibility = Visibility.Visible;
                 ViewAllTeamsPanel.Visibility = Visibility.Hidden;
                 AddGroupPanel.Visibility = Visibility.Hidden;
                 AddJudgePanel.Visibility = Visibility.Hidden;
                 FindWinnersPanel.Visibility = Visibility.Hidden;
-
-            }
-
-           
-                
-
-               // ScheduleWindow sw = new ScheduleWindow();
-                //sw.Show();
-
-                ////AddScoreSheet.Visibility = Visibility.Visible;
-            
+            };
         }
-    }
-}
+    };
+};

@@ -10,11 +10,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
         <Label Content="Schedule"></Label>
-        <ListView Grid.Row="1" ItemsSource="{Binding ScheduleList}" Background="AntiqueWhite">
+        <ListView Grid.Row="1" ItemsSource="{Binding ScheduleListCollection}" Background="AntiqueWhite" Width="auto">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -36,5 +38,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <WrapPanel Grid.Row="2">
+            <Button Content="Create Schedule"  Click="Button_Click"></Button>
+            <Button Content="Delete Schedule"  Click="Button_Click"></Button>
+        </WrapPanel>
+
     </Grid>
 </UserControl>

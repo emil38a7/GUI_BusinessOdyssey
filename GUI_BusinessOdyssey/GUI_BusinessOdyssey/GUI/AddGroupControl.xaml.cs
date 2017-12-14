@@ -25,30 +25,31 @@ namespace GUI_BusinessOdyssey.GUI
     /// </summary>
     public partial class AddGroupControl : UserControl
     {
-        
-        Office office;
-        
+        Office office = null;
+
         public AddGroupControl()
         {
             InitializeComponent();
-            office = new Office();
+           
+            office = EventMenuControl.office;
             this.DataContext = office;
         }
 
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {           
             office.createStudent();
+            studentNameBox.Text = null;
+            studentSchoolBox.Text = null;
         }
 
         private void addStudentGroup_Click(object sender, RoutedEventArgs e)
         {
-            office.postObject(office.createSGroup());
-            office.postJ(office.createSGroup());
-        }
-
-        private void categoryNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            //office.postObject(office.createSGroup());
+            if (office.postJ(office.createSGroup()))
+            {
+                studentNameBox.Text = null;
+                studentSchoolBox.Text = null;
+            }
         }
     }
 }
