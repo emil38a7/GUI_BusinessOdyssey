@@ -8,17 +8,19 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
-           
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="25*" />
         </Grid.ColumnDefinitions>
-        <Label Content="The semifinal winners"></Label>
-        <Label Content="The final winner" Grid.Row="0" Grid.Column="1"></Label>
-        <ListView Grid.Row="1" ItemsSource="{Binding TrackWinners}" Margin="10">
+        <Label Grid.ColumnSpan="3" Content="Winners" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="25" ></Label>
+        <Label Content="Semifinal winners" Grid.Row="1" ></Label>
+        <Label Content="Final winner" Grid.Row="1" Grid.Column="3"></Label>
+        <ListView Grid.Row="2" ItemsSource="{Binding TrackWinners}" Margin="5">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -40,7 +42,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Margin="10" Name="lvUsers" ItemsSource="{Binding FinalWinners}"  Grid.Row="1" Grid.Column="1" >
+        <ListView  Name="lvUsers" ItemsSource="{Binding FinalWinners}" Margin="5" Grid.Row="2" Grid.Column="2" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Track" Width="120" DisplayMemberBinding="{Binding TrackId}" />

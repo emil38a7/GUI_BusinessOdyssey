@@ -8,16 +8,19 @@
              d:DesignHeight="300" d:DesignWidth="1000">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="25*" />
         </Grid.ColumnDefinitions>
-        <Label Content="students"></Label>
-        <Label Content="judges" Grid.Column="1" ></Label>
-        <ListView Grid.Row="1" ItemsSource="{Binding DisplayStudents}">
+        <Label Grid.ColumnSpan="3" Content="Groups" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="25" ></Label>
+        <Label Content="Students" Grid.Row="1" ></Label>
+        <Label Content="Judges" Grid.Row="1" Grid.Column="3" ></Label>
+        <ListView Grid.Row="2" ItemsSource="{Binding DisplayStudents}" Margin="5">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -37,7 +40,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding DisplayJudges}">
+        <ListView Grid.Row="2" Grid.Column="2" ItemsSource="{Binding DisplayJudges}" Margin="5">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>

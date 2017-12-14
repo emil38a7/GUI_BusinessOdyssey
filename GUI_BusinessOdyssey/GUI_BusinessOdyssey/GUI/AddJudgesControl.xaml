@@ -16,8 +16,9 @@
         <RowDefinition Height="2*" />
         <RowDefinition Height="2*" />
         <RowDefinition Height="2*" />
-        <RowDefinition Height="2*" />
-    </Grid.RowDefinitions>
+         <RowDefinition Height="2*" />
+      
+        </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="1*" />
         <ColumnDefinition Width="2*" />
@@ -29,7 +30,7 @@
     <Label Grid.ColumnSpan="6" Content="Judges Registration" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="25" ></Label>
     <Label Grid.ColumnSpan="3" Grid.Row="1" Content="--Add a judge to team--" VerticalAlignment="Center"></Label>
         <Label Grid.Row="2" Content="Name:"></Label>
-        <TextBox Name="judgeNameBox" Text="{Binding judgeName}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" ></TextBox>
+        <TextBox Name="judgeNameBox" Text="{Binding judgeName}"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" ></TextBox>
     <Label Content="Judges Team" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
         <ListView Grid.Column="4" Margin="5" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalAlignment="Stretch" ItemsSource="{Binding JudgeList}">
         <ListView.View>
