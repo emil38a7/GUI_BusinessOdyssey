@@ -49,6 +49,7 @@ namespace GUI_BusinessOdyssey.GUI
             {
                 studentNameBox.Text = null;
                 studentSchoolBox.Text = null;
+                office.StudentList.Clear();
             }
         }
     }

@@ -17,6 +17,8 @@ namespace GUI_BusinessOdyssey.Management
     public class Office
     {
         Cypher cypher = new Cypher();
+
+        //Variables to set corect Uri in the post method
         string studentController = "http://localhost:63600//api/Students";
         string studentGroupController = "http://localhost:63600//api/StudentGroups";
         string judgeController = "http://localhost:63600//api/Judges";
@@ -35,6 +37,7 @@ namespace GUI_BusinessOdyssey.Management
         string scheduleMaster = "scheduleMaster";
         string scoreSheetRg = "ScoreSheetReg";
 
+        //Variables to data binding in AddGroupController and AddJudgeController
         public string studentName { get; set; }
         public string studentSchool { get; set; }
         public string groupName { get; set; }
@@ -44,8 +47,7 @@ namespace GUI_BusinessOdyssey.Management
         List<string> sGroupNameList;
         List<string> jGroupNameList;
 
-        // List<Student> tempStudentList;
-
+        //Collections to data binding for displaying all created groups
         ObservableCollection<Schedule> scheduleList;
         public ObservableCollection<Schedule> ScheduleList
         {
@@ -113,6 +115,7 @@ namespace GUI_BusinessOdyssey.Management
         List<ScoreSheetReg> trackThird = new List<ScoreSheetReg>();
         List<ScoreSheetReg> trackFourth = new List<ScoreSheetReg>();
 
+        //Create student object
         public Student createStudent()
         {
             Student student = new Student
@@ -120,15 +123,18 @@ namespace GUI_BusinessOdyssey.Management
                 StudentName = studentName,
                 StudentSchool = studentSchool,
             };
+            //Add student to oobservablecollection so all students are displayed in the panel, before group is created
             StudentList.Add(student);
             return student;
         }
 
+        //Create studentGroup
         public StudentGroup createSGroup()
         {
             sGroupNameList = getPrimaryKeyList(studentGroupID);
 
             StudentGroup sGroup = new StudentGroup();
+            //Check if group name is available
             sGroup.SGroupName = verifyStudentGroupName(sGroupNameList, groupName);
             sGroup.TrackId = track + 1;
 
@@ -142,22 +148,30 @@ namespace GUI_BusinessOdyssey.Management
             return sGroup;
         }
 
+        //Create Judge object
         public Judge createJudge()
         {
             Judge judge = new Judge
             {
                 JudgeName = judgeName
             };
+
+            //Add judge to oobservablecollection so all judges are displayed in the panel, before team is created
             JudgeList.Add(judge);
             return judge;
         }
 
+        //Create judgeGroup object
         public JudgesGroup createJudgesGroup()
         {
+            //to check if encryption is working, not used in th edata base
             Console.WriteLine(cypher.Encrypt("gzjo38b7wr"));
+
+            //Creating password for each judgeTeam
             jGroupNameList = getPrimaryKeyList(judgeGroupID);
             JudgesGroup jGroup = new JudgesGroup
             {
+                //Generating a name for judgeTeam, must be a single letter (defined in the requirements)
                 JGroupName = generateJudgeTeamName(jGroupNameList),
                 JGroupKey = generateKey(jGroupNameList)
             };
@@ -171,12 +185,14 @@ namespace GUI_BusinessOdyssey.Management
             return jGroup;
         }
 
+        //Create judgeTeam name
         public string generateJudgeTeamName(List<string> list)
         {
             char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
             return charList[list.Count].ToString();
         }
 
+        //Create uniqe, judgeTeam password
         public string generateMagicKey()
         {
             string key = "abcdefghijklmnopqrstvuwxyz0123456789";
@@ -190,9 +206,11 @@ namespace GUI_BusinessOdyssey.Management
             return new string(chars);
         }
 
+        //Add all students and studentsGroups to observable collection, bind collection to the listView
         public void groupView(string groups, string members)
         {
             DisplayStudents = new ObservableCollection<StudentGroup>();
+            //Fetch empty groups from database
             JArray jArray = getEntity(groups);
             foreach (JObject sg in jArray)
             {
@@ -200,12 +218,14 @@ namespace GUI_BusinessOdyssey.Management
             }
 
             List<Student> sList = new List<Student>();
+            //Fetch students from database
             JArray jArrayS = getEntity("studentId");
             foreach (JObject sg in jArrayS)
             {
                 sList.Add(sg.ToObject<Student>());
             }
 
+            //Insert students into coresponding studentGroups
             foreach (StudentGroup sg in DisplayStudents)
             {
                 foreach (Student s in sList)
@@ -218,9 +238,12 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //Add all judges and judgesTeams to observable collection, bind collection to the listView
         public void judgeGroupView(string groups, string members)
         {
             DisplayJudges = new ObservableCollection<JudgesGroup>();
+
+            //Fetch empty teams from database
             JArray jArray = getEntity(groups);
             foreach (JObject sg in jArray)
             {
@@ -228,12 +251,15 @@ namespace GUI_BusinessOdyssey.Management
             }
 
             List<Judge> memberList = new List<Judge>();
+
+            //Fetch judges from database
             JArray jArrayS = getEntity(members);
             foreach (JObject sg in jArrayS)
             {
                 memberList.Add(sg.ToObject<Judge>());
             }
 
+            //Insert judges into coresponding judgeTeams
             foreach (JudgesGroup jg in DisplayJudges)
             {
                 foreach (Judge j in memberList)
@@ -248,8 +274,10 @@ namespace GUI_BusinessOdyssey.Management
 
         public ObservableCollection<Schedule> createTimeSchedule()
         {
+            //Create new schedule if doesnt exist
             if (fillOutObjects().Count == 0)
             {
+                //First create empty schedule with sample hours
                 scheduleList = new ObservableCollection<Schedule>
             {
                 new Schedule() { ScheduleHour = new TimeSpan(10, 00, 00), ScheduleId = 1 },
@@ -268,7 +296,7 @@ namespace GUI_BusinessOdyssey.Management
                 new Schedule() { ScheduleHour = new TimeSpan(12, 00, 00), ScheduleId = 14 }
             };
 
-                JArray jjArray = getEntity("jGroupName");
+                JArray jjArray = getEntity("jGroupName"); //get all judgeTeams
                 List<JudgesGroup> jGroups = new List<JudgesGroup>();
 
                 foreach (JObject judgeGroup in jjArray)
@@ -276,7 +304,7 @@ namespace GUI_BusinessOdyssey.Management
                     jGroups.Add(judgeGroup.ToObject<JudgesGroup>());
                 }
 
-                JArray sjArray = getEntity("sGroupName");
+                JArray sjArray = getEntity("sGroupName");//get all studentGroups
                 List<StudentGroup> sGroups = new List<StudentGroup>();
 
                 foreach (JObject studentGroup in sjArray)
@@ -287,7 +315,8 @@ namespace GUI_BusinessOdyssey.Management
                 int scheduleCounter = 0;
                 int judgeCounter = 0;
                 int groupsPerJudgeTeam = roundUp(jGroups.Count, sGroups.Count);
-
+                
+                //Schedule all studentGroups to every judgeTeam
                 for (int i = 0; i < sGroups.Count; i++)
                 {
                     ScheduleList[scheduleCounter].ScheduleMaster.Add(new ScheduleMaster()
@@ -317,10 +346,12 @@ namespace GUI_BusinessOdyssey.Management
                 }
                 displaySchedule();
             }
+            //display schedule if its created
             else displaySchedule();
             return ScheduleList;
         }
 
+        //get the all schedules and schedulesMasters from DB an merge them together, acording to the same scheduleId
         public List<Schedule> fillOutObjects()
         {
             JArray scheduleArray = getEntity(scheduleObject);
@@ -353,6 +384,7 @@ namespace GUI_BusinessOdyssey.Management
 
         public void displaySchedule()
         {
+            //Display exiisting schedule into panel
             List<Schedule> sList = fillOutObjects();
             foreach (Schedule schedule in sList)
             {
@@ -391,6 +423,7 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //post object with HTTPRequest
         public bool postJ(Object obj)
         {
             setAccessPath(obj);
@@ -429,6 +462,7 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //Set the coresponding URI adress, based on object type of, used in post method. 
         public void setAccessPath(object obj)
         {
             switch (obj.GetType().ToString())
@@ -451,6 +485,7 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //Count how many studentGroups every judgeTeam must judge
         public int roundUp(int a, int b)
         {
             int result = b / a;
@@ -461,6 +496,7 @@ namespace GUI_BusinessOdyssey.Management
             else return result;
         }
 
+        //Post object with WebClient
         public void postObject(object obj)
         {
             setAccessPath(obj);
@@ -487,6 +523,7 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //Set the right URI based on the name of th eobject to create, used in post method
         public void setAccessPathEntity(string entityName)
         {
             switch (entityName)
@@ -530,6 +567,7 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //Get the whole table from database
         public JArray getEntity(string entityName)
         {
             setAccessPathEntity(entityName);
@@ -558,7 +596,7 @@ namespace GUI_BusinessOdyssey.Management
 
             return jArray;
         }
-
+//Method used in older version of the program
         public List<int> getIDsList(string entityName)
         {
             JArray jArray = getEntity(entityName);
@@ -577,6 +615,7 @@ namespace GUI_BusinessOdyssey.Management
             return idList;
         }
 
+        //Method used in older version of the program
         public List<string> getPrimaryKeyList(string entityName)
         {
             JArray jArray = getEntity(entityName);
@@ -594,6 +633,7 @@ namespace GUI_BusinessOdyssey.Management
             return keyList;
         }
 
+        //Compare if chosen groupName is available, not taken by other registered studentGroups
         public string verifyStudentGroupName(List<string> groupNames, string groupName)
         {
             if (groupNames.Count == 0 || !groupNames.Contains(groupName))
@@ -607,12 +647,14 @@ namespace GUI_BusinessOdyssey.Management
             };
         }
 
+        //To create judgeTeam name, specified in the requirements
         public char generateJudgeTeamName(int id)
         {
             char[] charList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
             return charList[id - 1];
         }
 
+        //For creating passowrd for judgeTeam
         public string generateKey(List<string> keyList)
         {
             string uniqeKey = generateMagicKey();
@@ -623,6 +665,7 @@ namespace GUI_BusinessOdyssey.Management
             else return generateKey(keyList);
         }
 
+        //Method used in older version of the program
         public int generateID(List<int> idList)
         {
             int id = 0;
@@ -635,6 +678,7 @@ namespace GUI_BusinessOdyssey.Management
             else return 1;
         }
 
+        //Method to find winner in every track
         public ScoreSheetReg findWinner()
         {
             List<ScoreSheetReg> grandeFinale = new List<ScoreSheetReg>();
@@ -689,6 +733,7 @@ namespace GUI_BusinessOdyssey.Management
             return null;
         }
 
+        //Method to find final winner
         public void findFinalWinner(List<ScoreSheetReg> list)
         {
             var maxPoints = list.Max(obj => obj.Points);
@@ -700,6 +745,7 @@ namespace GUI_BusinessOdyssey.Management
             }
         }
 
+        //Method to display winners list in the FindWinnerController
         public void addTrackWinners(List<ScoreSheetReg> objectList, ObservableCollection<List<ScoreSheetReg>> winnersList)
         {
             List<ScoreSheetReg> templist = new List<ScoreSheetReg>();

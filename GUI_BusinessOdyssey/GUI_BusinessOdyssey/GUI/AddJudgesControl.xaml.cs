@@ -39,7 +39,11 @@ namespace GUI_BusinessOdyssey.GUI
 
         private void addJudgesTeamGroup_Click(object sender, RoutedEventArgs e)
         {
-            office.postJ(office.createJudgesGroup());
+            JudgesGroup jg = office.createJudgesGroup();
+            if (office.postJ(jg))
+            {
+                MessageBox.Show("The password for team:  " + jg.JGroupName+ " is " + jg.JGroupKey);
+            };
         }
     }
 }
